@@ -493,6 +493,7 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
   int left_count=0;
   int right_count=0;
 
+  // Compute the number of blocks in each child. TO DO: update this via the update gains function
   for (i=0; i<num_blocks;i++)
   {
     #ifdef DEBUG_PART_PLACE
@@ -501,29 +502,34 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
 
     if(block[i].loc != GLOBAL_CLOCK_LOC)
     {
-          if(block[i].left==1)
-          {
-            left_count=left_count+1;
-          }
-          
-          if(block[i].left==0)
-          {
-            right_count=right_count+1;
-          }
+      if(block[i].left==1)
+      {
+        left_count=left_count+1;
+      }
+      
+      if(block[i].left==0)
+      {
+        right_count=right_count+1;
+      }
     }
   }
     
-
+  // Initialize the balance as a float
   float balance=0;
 
+  // Compute the balance, ensure that we don't divide by zero
   if((right_count+left_count)!=0)
   {
     balance=(float)left_count/(float)(right_count+left_count);
   }
 
+  // Find the 50/50 split
   int num= (left_count+right_count)>>1;
 
+  // r is the desired ratio we would like to maintain 
   float r=.5;
+  
+  // smax is the maximum deviation from the desired ratio
   int smax=1;
   
   #ifdef DEBUG_PART_PLACE
@@ -533,16 +539,19 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
   printf("max gain right = %d max gain left =%d\n", max_gain_right, max_gain_left);
   #endif
  
+  // Define the lower and upper limits on the deviation from the desired ratio
   float lower= floor(r*((float)right_count+(float)left_count)-(float)smax);
   float upper= floor(r*((float)right_count+(float)left_count)+(float)smax);
-  //printf("lower %f upper %f\n", lower, upper);
 
-
-
+  // Initialize active branch to -1 (no good moves available)
   active_branch=-1;
+
+  // Define some temporary values for control flow
   int temp_left=0;
   int temp_right=0;
 
+    // If there are enough blocks in the left branch
+    // we can consider moving one to the right branch
     if(left_count-1>=lower)
     {
       if(max_gain_left>=0 && left_count>0)
@@ -551,6 +560,9 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         temp_left=1;
       }  
     }
+
+    // If there are enough blocks in the right branch
+    // we can consider moving one to the left branch
     else if (right_count-1>=lower)
       {
         if(max_gain_right>=0 && right_count>0)
@@ -560,6 +572,8 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         }
       }
 
+    // If there was a candidate for a move in both branches
+    // we need to decide which one to pick
     if(temp_left==1 && temp_right==1)
     {
       if(max_gain_left>= max_gain_right)
@@ -571,30 +585,34 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         active_branch=1;
       }
     }
+    // If only a candidate in the left pick the left branch
     else if(temp_left==1 && temp_right ==0)
     {
       active_branch=0;
     }
+    // If only a candidate in the right pick the right branch
     else if(temp_left==0 && temp_right ==1)
     {
       active_branch=1;
     }
+    // If neither then no good moves
     else
     {
       active_branch=-1;
     }
     
+    // Special case if we are at the PEs
+    // If we can stuff all the blocks into one PE, do it.
     if (current_height== 1)
       
     {
-      //printf("current height =1\n");
-      //printf("left_count+right count %d\n", left_count+right_count);
       if(left_count+right_count<=capacity && right_count!=0 && max_gain_right>-pmax)
       {
         active_branch=1;
       }
     }
    
+   // Now some last checks to make sure that we don't violate capacity
     if( active_branch==0)
     {
       if(right_count+1>capacity)
@@ -620,8 +638,6 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         active_branch=1;
       }
     }
-
-    //printf("ACTIVE BRANCH IMMEDIATELT POST GUARDS: %d\n", active_branch);
     
  // Determine active block (for debugging purposes)
   if(active_branch==0)
@@ -638,8 +654,7 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
     printf("Active: %s\n",block[buckets_right[(max_gain_right)+pmax]->cellNumber].name);
    #endif
   }
-  //printf("GOT HERE\n");
-  //printf("max gain right %d max gain left %d\n",max_gain_right, max_gain_left);
+  
   return active_branch;
 }
 
@@ -839,61 +854,61 @@ void rearrange_blocks(int switch_num)
     if(block[i].left!=-1)
     //printf("Block %s left = %d\n", block[i].name, block[i].left);
   }
-#endif
+  #endif
 
   for(i=0; i<num_blocks;i++)
   {
     //left[i]=FALSE;
     /// Skip placing clock, but mark it so doesn't complain later
     //if(block[i].loc == GLOBAL_CLOCK_LOC || block[i].type==-1)
-    if(block[i].loc == GLOBAL_CLOCK_LOC)
-      {
+  if(block[i].loc == GLOBAL_CLOCK_LOC)
+  {
         #ifdef DEBUG_PART_PLACE
-        printf("Skipped placing block %s, it is a global clock\n", block[i].name);
+    printf("Skipped placing block %s, it is a global clock\n", block[i].name);
         #endif
 
-        block[i].loc=GLOBAL_CLOCK_LOC;
-        block[i].slot_loc=GLOBAL_CLOCK_LOC;
-      }
+    block[i].loc=GLOBAL_CLOCK_LOC;
+    block[i].slot_loc=GLOBAL_CLOCK_LOC;
+  }
     // If block is left, then place in a slot in the left child.
-    else if(block[i].left==1)
-    {
+  else if(block[i].left==1)
+  {
       //printf("Node type %d\n", tree_location[tree_location[switch_num].left].node_type);
-      if (tree_location[tree_location[switch_num].left].node_type==NODE_TYPE_PE)
-      {
-        place_block(i,tree_location[switch_num].left,level[i]);
+    if (tree_location[tree_location[switch_num].left].node_type==NODE_TYPE_PE)
+    {
+      place_block(i,tree_location[switch_num].left,level[i]);
         //printf("Placed block %s in PE %d\n", block[i].name,tree_location[switch_num].left);
-      }
-      else
-      {
-        insert_block_switch(i, tree_location[switch_num].left,level[i]);
-      }
+    }
+    else
+    {
+      insert_block_switch(i, tree_location[switch_num].left,level[i]);
+    }
 
         #ifdef DEBUG_PART_PLACE
-        printf("Placed block %s in left child\n",block[i].name);
-        printf("Used slots left %d\n", tree_location[tree_location[switch_num].left].used_slots);
+    printf("Placed block %s in left child\n",block[i].name);
+    printf("Used slots left %d\n", tree_location[tree_location[switch_num].left].used_slots);
         #endif 
-      }
+  }
     // If block is right, then place in a slot in the right child
-    else if(block[i].left==0)
-      {
+  else if(block[i].left==0)
+  {
 
-      if (tree_location[tree_location[switch_num].right].node_type==NODE_TYPE_PE)
-      {
-        place_block(i,tree_location[switch_num].right,level[i]);
+    if (tree_location[tree_location[switch_num].right].node_type==NODE_TYPE_PE)
+    {
+      place_block(i,tree_location[switch_num].right,level[i]);
         //printf("Placed block %s in PE %d\n", block[i].name,tree_location[switch_num].right);
-      }
-      else
-      {
-        insert_block_switch(i, tree_location[switch_num].right,level[i]);
-      }
+    }
+    else
+    {
+      insert_block_switch(i, tree_location[switch_num].right,level[i]);
+    }
 
         #ifdef DEBUG_PART_PLACE
-        printf("Placed block %s in right child\n",block[i].name);
-        printf("Used slots right %d\n", tree_location[tree_location[switch_num].right].used_slots);
+    printf("Placed block %s in right child\n",block[i].name);
+    printf("Used slots right %d\n", tree_location[tree_location[switch_num].right].used_slots);
         #endif
-      }
-      
+  }
+
   }
 
 }
