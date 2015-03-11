@@ -154,12 +154,6 @@ void repartition(int height, int number_of_blocks, int *sub_left, int *sub_right
 {
   int i;
   
-  //Naively split blocks into two halves 
-  int part_size=(number_of_blocks>>1);
-  //int part_size=(get_size()*cluster_size)/pow(2,(tree_location[root].height+1-height));
-  //int temp=tree_location[root].height+1-height;
-  //printf("PART SIZE %d temp power %d\n", part_size, temp);
-
   for (i=0;i<tree_location[location].used_slots;i++)
   {
     int temp=rand()%2;
