@@ -1,0 +1,27 @@
+!SESSION 2015-02-19 20:59:13.248 -----------------------------------------------
+eclipse.buildId=M20130204-1200
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.adtproduct -keyring /Users/mokelly/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.adtproduct -keyring /Users/mokelly/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-02-19 21:00:55.110
+!MESSAGE Indexed 'ese535' (0 sources, 85 headers) in 0.59 sec: 761 declarations; 1,150 references; 3 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.core.resources 4 77 2015-02-19 21:01:33.218
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2015-02-19 21:01:33.218
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2015-02-19 21:01:33.218
+!MESSAGE /Users/mokelly/Desktop/spring2015/assign3 overlaps the workspace location: /Users/mokelly/Desktop/spring2015/assign3
+
+!ENTRY org.eclipse.ui 2 2 2015-02-19 21:01:48.793
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.core.resources 4 77 2015-02-19 21:04:40.308
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2015-02-19 21:04:40.308
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2015-02-19 21:04:40.308
+!MESSAGE /Users/mokelly/Desktop/spring2015/assign3 overlaps the workspace location: /Users/mokelly/Desktop/spring2015/assign3
