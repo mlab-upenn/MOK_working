@@ -28,6 +28,7 @@ void print_f_and_t(void)
   #endif
  }
 }
+
 int array_scan(int whichElem, int *array, int num_elem)
 {
   int i;
@@ -49,16 +50,14 @@ void check_gains(int blockLoc)
     printf("ERROR \n \n \n");
     printf("Gain %d on block %s does not match calculation %d\n", block[blockLoc].gain, block[blockLoc].name, real);
     #endif
-
-
   }
+
   else
   {
     #ifdef DEBUG_PART_PLACE
      printf("Successful update\n");
      #endif
   }
-   
 }
 
 int calculate_gains(int blockLoc)
@@ -92,20 +91,19 @@ int calculate_gains(int blockLoc)
         to_right=to_right+1;
       }
 
-    else if(block[current_block].left==0)
-    { 
+      else if(block[current_block].left==0)
+      { 
       #ifdef DEBUG_PART_PLACE
-      printf("Current block: %s caused T_left increase \n", block[current_block].name);
-      printf("sub left evals %d\n",sub_left[current_block]);
+        printf("Current block: %s caused T_left increase \n", block[current_block].name);
+        printf("sub left evals %d\n",sub_left[current_block]);
       #endif
-      to_left=to_left+1;
-      from_right=from_right+1;
-
+        to_left=to_left+1;
+        from_right=from_right+1;
+      }
     }
   }
- }
 
-    if(block[blockLoc].type==1 || block[blockLoc].type==3)
+  if(block[blockLoc].type==1 || block[blockLoc].type==3)
   {
     numberOfNets=block[blockLoc].num_nets-2;
     start=0;
@@ -130,7 +128,6 @@ int calculate_gains(int blockLoc)
       gain=gain-1;
     }
   }
-
   return gain;
 }
 
@@ -153,12 +150,6 @@ int compute_pmax(void)
 void repartition(int height, int number_of_blocks, int *sub_left, int *sub_right, int location, int cluster_size, int root)
 {
   int i;
-  
-  //Naively split blocks into two halves 
-  int part_size=(number_of_blocks>>1);
-  //int part_size=(get_size()*cluster_size)/pow(2,(tree_location[root].height+1-height));
-  //int temp=tree_location[root].height+1-height;
-  //printf("PART SIZE %d temp power %d\n", part_size, temp);
 
   for (i=0;i<tree_location[location].used_slots;i++)
   {
