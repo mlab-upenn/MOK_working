@@ -1,0 +1,69 @@
+.global pclk
+
+.input i0
+pinlist: i0 
+
+.input i1
+pinlist: i1 
+
+.input i2
+pinlist: i2 
+
+.input i3
+pinlist: i3 
+
+.input i4
+pinlist: i4 
+
+.input i5
+pinlist: i5 
+
+.input i6
+pinlist: i6 
+
+.input i7
+pinlist: i7 
+
+.input i10
+pinlist: i10 
+
+.input i11
+pinlist: i11 
+
+.input pclk
+pinlist: pclk 
+
+.output out:o9
+pinlist: o9 
+
+.output out:gf
+pinlist: gf 
+
+.clb gf
+pinlist: ff i3 h i0 i1 open open open open open open open open open open open \
+gf open a open pclk 
+subblock: gf ble_1 0 open open 16 20 
+subblock: c 1 2 open open 17 open 
+subblock: a 3 4 open open 18 open 
+
+.clb h
+pinlist: df bf open open open open open open open open open open open open \
+open open h open open open open 
+subblock: h 0 1 open open 16 open 
+
+.clb bf
+pinlist: i2 a i6 i7 open open open open open open open open open open open \
+open bf ff open open pclk 
+subblock: bf 0 1 open open 16 20 
+subblock: ff 2 3 open open 17 20 
+
+.clb df
+pinlist: i4 i5 open open open open open open open open open open open open \
+open open df open open open pclk 
+subblock: df 0 1 open open 16 20 
+
+.clb o9
+pinlist: i10 i11 open open open open open open open open open open open open \
+open open o9 open open open open 
+subblock: o9 0 1 open open 16 open 
+

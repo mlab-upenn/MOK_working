@@ -1,0 +1,65 @@
+Input netlist file: example.blif  Model: example
+num_p_inputs: 11, num_p_outputs: 2, num_luts: 8, num_latches: 4
+num_blocks: 25, num_nets: 23
+
+Net	Name		#Pins	Driver	Recvs.
+
+0	i0		2	0	17
+1	i1		2	1	17
+2	i2		2	2	18
+3	i3		2	3	19
+4	i4		2	4	20
+5	i5		2	5	20
+6	i6		2	6	22
+7	i7		2	7	22
+8	i10		2	8	21
+9	i11		2	9	21
+10	pclk		5	10	13	14	15	16
+11	o9		2	21	11
+12	gf		2	16	12
+13	b		2	18	13
+14	bf		2	13	24
+15	d		2	20	14
+16	df		2	14	24
+17	f		2	22	15
+18	ff		2	15	23
+19	g		2	23	16
+20	a		2	17	18
+21	h		2	24	19
+22	c		2	19	23
+
+
+Blocks			Block Type Legend:
+			INPAD = -2	OUTPAD = -1
+			LUT = 0		LATCH = 1
+			EMPTY = 2	LUT_AND_LATCH = 3
+
+
+Block	Name		Type	#Nets	Output	Inputs				Clock
+
+
+0	i0		-2	1	0
+1	i1		-2	1	1
+2	i2		-2	1	2
+3	i3		-2	1	3
+4	i4		-2	1	4
+5	i5		-2	1	5
+6	i6		-2	1	6
+7	i7		-2	1	7
+8	i10		-2	1	8
+9	i11		-2	1	9
+10	pclk		-2	1	10
+11	out:o9		-1	1	11
+12	out:gf		-1	1	12
+13	bf		1	3	14	13	OPEN	OPEN	OPEN	10
+14	df		1	3	16	15	OPEN	OPEN	OPEN	10
+15	ff		1	3	18	17	OPEN	OPEN	OPEN	10
+16	gf		1	3	12	19	OPEN	OPEN	OPEN	10
+17	a		0	3	20	0	1	OPEN	OPEN	OPEN
+18	b		0	3	13	2	20	OPEN	OPEN	OPEN
+19	c		0	3	22	3	21	OPEN	OPEN	OPEN
+20	d		0	3	15	4	5	OPEN	OPEN	OPEN
+21	o9		0	3	11	8	9	OPEN	OPEN	OPEN
+22	f		0	3	17	6	7	OPEN	OPEN	OPEN
+23	g		0	3	19	22	18	OPEN	OPEN	OPEN
+24	h		0	3	21	16	14	OPEN	OPEN	OPEN

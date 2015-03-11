@@ -1,0 +1,94 @@
+.global pclk
+
+.input i0
+pinlist: i0 
+
+.input i1
+pinlist: i1 
+
+.input i2
+pinlist: i2 
+
+.input i3
+pinlist: i3 
+
+.input i4
+pinlist: i4 
+
+.input i5
+pinlist: i5 
+
+.input i6
+pinlist: i6 
+
+.input i7
+pinlist: i7 
+
+.input i10
+pinlist: i10 
+
+.input i11
+pinlist: i11 
+
+.input pclk
+pinlist: pclk 
+
+.output out:o9
+pinlist: o9 
+
+.output out:gf
+pinlist: gf 
+
+.clb i0
+pinlist: i2 a open open open open open open open open open open open open \
+open open i0 i10 i11 bf pclk 
+subblock: i0 ble_0 ble_0 ble_0 ble_0 16 open 
+subblock: i10 ble_0 ble_0 ble_0 ble_0 17 open 
+subblock: i11 ble_0 ble_0 ble_0 ble_0 18 open 
+subblock: bf 0 1 open open 19 20 
+
+.clb out:gf
+pinlist: i0 open open open open open open open open open open open open open \
+open open open open open open open 
+subblock: out:gf 0 0 0 0 open open 
+
+.clb gf
+pinlist: c ff df bf open open open open open open open open open open open \
+open gf h open open pclk 
+subblock: gf 0 1 open open 16 20 
+subblock: h 2 3 open open 17 open 
+
+.clb i7
+pinlist: i0 open open open open open open open open open open open open open \
+open open i7 open open open open 
+subblock: i7 0 0 0 0 16 open 
+
+.clb i2
+pinlist: i0 i1 open open open open open open open open open open open open \
+open open i2 i5 a open open 
+subblock: i2 0 0 0 0 16 open 
+subblock: i5 0 0 0 0 17 open 
+subblock: a 0 1 open open 18 open 
+
+.clb i6
+pinlist: i0 i10 i11 i7 open open open open open open open open open open open \
+open open o9 ff open pclk 
+subblock: i6 0 0 0 0 16 open 
+subblock: o9 1 2 open open 17 open 
+subblock: ff ble_0 3 open open 18 20 
+
+.clb i1
+pinlist: i0 open open open open open open open open open open open open open \
+open open i1 i3 open open open 
+subblock: i1 0 0 0 0 16 open 
+subblock: i3 0 0 0 0 17 open 
+subblock: out:o9 0 0 0 0 open open 
+
+.clb i4
+pinlist: i0 i3 h i5 open open open open open open open open open open open \
+open open pclk c df pclk 
+subblock: i4 0 0 0 0 16 open 
+subblock: pclk 0 0 0 0 17 open 
+subblock: c 1 2 open open 18 open 
+subblock: df ble_0 3 open open 19 20 
+
