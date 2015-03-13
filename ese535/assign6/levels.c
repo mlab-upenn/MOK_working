@@ -64,35 +64,40 @@ void post_klfm_balance_for_all_levels(int location)
 }
 
 
-void initialize_gain_by_level(void)
+void initialize_gain_by_level(int location)
 {
     int i;
     int j;
     int k;
     int max_level=initialize_levels();
+    max_level=max_level+1;
 
-    int *T_left_level=(int *)malloc(sizeof(int)*(max_level+1));
-    int *F_left_level=(int *)malloc(sizeof(int)*(max_level+1));
-    int *T_right_level=(int *)malloc(sizeof(int)*(max_level+1));
-    int *F_right_level=(int *)malloc(sizeof(int)*(max_level+1));
-
-    for (i=0; i<max_level+1;i++)
-    {
-        T_left_level[i]=0; 
-        F_left_level[i]=0;
-        T_right_level[i]=0;
-        F_right_level[i]=0;
-    }
 
     for(i=0; i<num_nets;i++)
     {
-        net[i].F_left_level=F_left_level;
-        net[i].T_left_level=T_left_level;
-        net[i].F_right_level=F_right_level;
-        net[i].T_right_level=T_right_level;
+        net[i].F_left_level=(int *)malloc(sizeof(int)*max_level);
+        net[i].T_left_level=(int *)malloc(sizeof(int)*max_level);
+        net[i].F_right_level=(int *)malloc(sizeof(int)*max_level);
+        net[i].T_right_level=(int *)malloc(sizeof(int)*max_level);
+        for (j=0; j<max_level;j++)
+        {
+            net[i].T_left_level[j]=0; 
+            net[i].F_left_level[j]=0;
+            net[i].T_right_level[j]=0;
+            net[i].F_right_level[j]=0;
+        }
     }
 
-    for(k=0; k<max_level+1; k++)
+    for(i=0; i<num_blocks;i++)
+    {
+        block[i].level_gain=(int *)malloc(sizeof(int)*max_level);
+        for (j=0; j<max_level;j++)
+        {
+           block[i].level_gain[j]=0;
+        }
+    }
+
+    for(k=0; k<max_level; k++)
     {
         for(i=0; i<num_nets; i++)
         {
@@ -127,7 +132,116 @@ void initialize_gain_by_level(void)
             }
         } 
     }
+
+    for(k=0; k<max_level; k++)
+    {
+    // Loop through all of the blocks which are present in the tree structure's left child
+        for (i=0;i<tree_location[tree_location[location].left].used_slots;i++)
+        { 
+            int numberOfNets=0;
+            int start = 0;
+            int current_block=tree_location[tree_location[location].left].slots[i];
+
+            #ifdef DEBUG_PART_PLACE
+            printf("Current Block: %s\n", block[current_block].name);
+            #endif
+
+            // Figure out how many nets are connected to the block
+            if(block[current_block].type==LATCH || block[current_block].type==LUT_AND_LATCH)
+            {
+              numberOfNets=block[current_block].num_nets-1;
+              start=0;
+            }
+
+            else
+            {
+              numberOfNets=block[current_block].num_nets;
+              start=0;
+            }
+
+        // For all the nets
+        for (j=start; j<numberOfNets; j++)
+          {
+            #ifdef DEBUG_PART_PLACE
+            printf (" j %d, F_left %d number of nets %d\n", j,net[block[current_block].nets[j]].F_left_level[k], numberOfNets);
+            printf("T_left %d\n", net[block[current_block].nets[j]].T_left_level[k]);
+            #endif
+
+            if(net[block[current_block].nets[j]].F_left_level[k]==1)
+            {
+                block[current_block].level_gain[k]=block[current_block].level_gain[k]+1;
+                #ifdef DEBUG_PART_PLACE
+                printf("gain increased %d\n",gain[current_block]);
+                #endif
+            }
+            else if(net[block[current_block].nets[j]].T_left_level[k]==0)
+            {
+                block[current_block].level_gain[k]=block[current_block].level_gain[k]-1;
+                #ifdef DEBUG_PART_PLACE
+                printf("gain decreased %d\n", gain[current_block]);
+                #endif
+            }
+
+        }        
+
+    }
  }
+
+for(k=0; k<max_level; k++)
+    {
+    // Loop through all of the blocks which are present in the tree structure's left child
+        for (i=0;i<tree_location[tree_location[location].right].used_slots;i++)
+        { 
+            int numberOfNets=0;
+            int start = 0;
+            int current_block=tree_location[tree_location[location].right].slots[i];
+
+            #ifdef DEBUG_PART_PLACE
+            printf("Current Block: %s\n", block[current_block].name);
+            #endif
+
+            // Figure out how many nets are connected to the block
+            if(block[current_block].type==LATCH || block[current_block].type==LUT_AND_LATCH)
+            {
+              numberOfNets=block[current_block].num_nets-1;
+              start=0;
+            }
+
+            else
+            {
+              numberOfNets=block[current_block].num_nets;
+              start=0;
+            }
+
+        // For all the nets
+        for (j=start; j<numberOfNets; j++)
+          {
+            #ifdef DEBUG_PART_PLACE
+            printf (" j %d, F_right %d number of nets %d\n", j,net[block[current_block].nets[j]].F_right_level[k], numberOfNets);
+            printf("T_right %d\n", net[block[current_block].nets[j]].T_right_level[k]);
+            #endif
+
+            if(net[block[current_block].nets[j]].F_right_level[k]==1)
+            {
+                block[current_block].level_gain[k]=block[current_block].level_gain[k]+1;
+                #ifdef DEBUG_PART_PLACE
+                printf("gain increased %d\n",gain[current_block]);
+                #endif
+            }
+            else if(net[block[current_block].nets[j]].T_right_level[k]==0)
+            {
+                block[current_block].level_gain[k]=block[current_block].level_gain[k]-1;
+                #ifdef DEBUG_PART_PLACE
+                printf("gain decreased %d\n", gain[current_block]);
+                #endif
+            }
+
+        }        
+
+    }
+ }
+
+}
 
 
 

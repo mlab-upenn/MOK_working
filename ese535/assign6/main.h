@@ -43,7 +43,8 @@ struct s_block {char *name; enum block_types type; int num_nets;
                 int gain; 
                 int left; 
                 int free;
-                int level;}; 
+                int level;
+                int *level_gain;}; 
 /* name:  Taken from the net which it drives.                        *
  * type:  LUT, INPAD, OUTPAD or LATCH.                               *
  * num_nets:  number of nets connected to this block.                *

@@ -720,7 +720,7 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
   current_cut=calculate_cut(sub_left);
   //printf("Current Cut after initialization: %d\n", current_cut);
   previous_cut=current_cut+1;
-  initialize_gain_by_level();
+  initialize_gain_by_level(location);
 
   /* KLFM */
   while(current_cut<=previous_cut && passes<15)
