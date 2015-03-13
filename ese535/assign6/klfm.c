@@ -10,6 +10,7 @@
 #include "part_place.h"
 #include "updategains.h"
 #include <string.h>
+#include "levels.h"
 
 
 //#define DEBUG_PART_PLACE
@@ -654,7 +655,7 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
     printf("Active: %s\n",block[buckets_right[(max_gain_right)+pmax]->cellNumber].name);
    #endif
   }
-  
+
   return active_branch;
 }
 
@@ -719,6 +720,7 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
   current_cut=calculate_cut(sub_left);
   //printf("Current Cut after initialization: %d\n", current_cut);
   previous_cut=current_cut+1;
+  initialize_gain_by_level();
 
   /* KLFM */
   while(current_cut<=previous_cut && passes<15)
@@ -924,8 +926,14 @@ void recurse_tree(int height, int location, int pmax, boolean *is_clock, int cap
   else
   {
     int temp;
+    int left_in;
+    int left_out;
+    int right_in;
+    int right_out;
     printf("KLFM CALL ON TREE LOCATION %d\n", location);
+    //initialize_levels();
     temp=KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
+    post_klfm_balance_for_all_levels(location);
     printf("Parents blocks = %d\n",tree_used_slots(location));
     printf("Left blocks = %d\n", tree_used_slots(tree_location[location].left));
     printf("Right blocks= %d\n",tree_used_slots(tree_location[location].right));

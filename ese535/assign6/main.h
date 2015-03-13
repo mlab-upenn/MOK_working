@@ -22,7 +22,15 @@ struct hash_nets {char *name; int index; int count;
    struct hash_nets *next;}; 
 /* count is the number of pins on this net so far. */
 
-struct s_net {char *name; int num_pins; int *pins; int F_left; int T_left;int F_right; int T_right;};
+struct s_net {char *name; int num_pins; int *pins; 
+                                        int F_left; 
+                                        int T_left;
+                                        int F_right; 
+                                        int T_right; 
+                                        int *T_left_level; 
+                                        int *F_left_level;
+                                        int *T_right_level;
+                                        int *F_right_level;};
 /* name:  ASCII net name for informative annotations in the output.  *
  * num_pins:  Number of pins on this net.                            *
  * pins[]: Array containing the blocks to which the pins of this net *
@@ -34,7 +42,8 @@ struct s_block {char *name; enum block_types type; int num_nets;
                 int slot_loc; 
                 int gain; 
                 int left; 
-                int free;}; 
+                int free;
+                int level;}; 
 /* name:  Taken from the net which it drives.                        *
  * type:  LUT, INPAD, OUTPAD or LATCH.                               *
  * num_nets:  number of nets connected to this block.                *
