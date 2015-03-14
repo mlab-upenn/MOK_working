@@ -179,10 +179,7 @@ void update_case_1(int whichBlock, int active_branch, int whichNet, ListPtr *buc
         #ifdef DEBUG_PART_PLACE
         printf(" T=0, Updated Gain: %d on block %s\n",block[whichPin].level_gain[level], block[whichPin].name);
         printf("Before Insert\n");
-        //printList(buckets_left[block[block_oper].gain]);
         #endif
-
-// CHECKED UP TO HERE
 
         #ifdef CHECK_GAINS
         check_gains(whichPin);
@@ -229,19 +226,19 @@ void update_case_2(int whichBlock, int active_branch, int whichNet, ListPtr *buc
         }
         markedPins[j]=whichPin;
 
-        if(((block[whichPin].left==0 && active_branch==0) || (block[whichPin].left==1 && active_branch==1)) && whichPin != whichBlock)
+        if(((block[whichPin].left==0 && active_branch==0) || (block[whichPin].left==1 && active_branch==1)) && whichPin != whichBlock && block[whichPin].level==level)
         //if(((block[whichPin].left==0 && active_branch==0) || (block[whichPin].left==1 && active_branch==1))&& block[whichPin].free==1)
         {
 
           #ifdef DEBUG_PART_PLACE
           printf("Left Case 2\n");
-          printf(" T_left =1, Gain: %d\n",block[whichPin].gain=block[whichPin].gain);
+          printf(" T_left =1, Gain: %d\n",block[whichPin].level_gain[level]);
           #endif
 
-          block[whichPin].gain=block[whichPin].gain-1;
+          block[whichPin].level_gain[level]=block[whichPin].level_gain[level]-1;
 
           #ifdef DEBUG_PART_PLACE
-          printf(" Gain-1, T_left =1, Updated Gain: %d, on Block %s, %d\n",block[whichPin].gain,block[whichPin].name,whichPin);
+          printf(" Gain-1, T_left =1, Updated Gain: %d, on Block %s, %d\n",block[whichPin].level_gain[level],block[whichPin].name,whichPin);
           #endif
 
           #ifdef CHECK_GAINS
@@ -249,17 +246,6 @@ void update_case_2(int whichBlock, int active_branch, int whichNet, ListPtr *buc
           printf("Left Case 2\n");
           printf("On block %s and net %d\n",block[whichPin].name,whichNet);   
           #endif
-
-          if(active_branch==0)
-          {
-            insert(&buckets_right[(block[whichPin].gain)+pmax], whichPin);
-            delete(&buckets_right[(block[whichPin].gain)+pmax+1], whichPin);
-          }
-          else if (active_branch==1)
-          {
-            insert(&buckets_left[(block[whichPin].gain)+pmax], whichPin);
-            delete(&buckets_left[(block[whichPin].gain)+pmax+1], whichPin);            
-          }
 
           #ifdef DEBUG_PART_PLACE
           printf("Completed Left Case 2\n");
