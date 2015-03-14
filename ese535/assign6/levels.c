@@ -185,9 +185,9 @@ void initialize_gain_by_level(int location)
         }        
 
     }
- }
+    }
 
-for(k=0; k<max_level; k++)
+    for(k=0; k<max_level; k++)
     {
     // Loop through all of the blocks which are present in the tree structure's left child
         for (i=0;i<tree_location[tree_location[location].right].used_slots;i++)
@@ -239,9 +239,11 @@ for(k=0; k<max_level; k++)
         }        
 
     }
- }
+    }
 
 }
+
+
 
 
 

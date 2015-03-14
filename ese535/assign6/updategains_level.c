@@ -126,7 +126,7 @@ int update_gains(int active_branch, ListPtr *buckets_left, ListPtr *buckets_righ
 }
 
 
-void update_case_1(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left)
+void update_case_1(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left, int level)
 {
   int i;
   int j;
@@ -166,45 +166,28 @@ void update_case_1(int whichBlock, int active_branch, int whichNet, ListPtr *buc
 
       
 
-      if(block[net[j].pins[0]].loc!=GLOBAL_CLOCK_LOC && whichPin != whichBlock )
-      //if(block[whichPin].free==1 &&  block[net[j].pins[0]].loc!=GLOBAL_CLOCK_LOC)
+      if(block[net[j].pins[0]].loc!=GLOBAL_CLOCK_LOC && whichPin != whichBlock && block[whichPin].level==level)
       {
         
         #ifdef DEBUG_PART_PLACE
         printf("Case 1\n");
-        printf(" T=0, Gain: %d\n",block[whichPin].gain=block[whichPin].gain);
+        printf(" T=0, Gain: %d\n",block[whichPin].level_gain[level]);
         #endif
 
-        block[whichPin].gain=block[whichPin].gain+1;
+        block[whichPin].level_gain[level]=block[whichPin].level_gain[level]+1;
         
         #ifdef DEBUG_PART_PLACE
-        printf(" T=0, Updated Gain: %d on block %s\n",block[whichPin].gain, block[whichPin].name);
+        printf(" T=0, Updated Gain: %d on block %s\n",block[whichPin].level_gain[level], block[whichPin].name);
         printf("Before Insert\n");
         //printList(buckets_left[block[block_oper].gain]);
         #endif
+
+// CHECKED UP TO HERE
 
         #ifdef CHECK_GAINS
         check_gains(whichPin);
         printf("Case 1\n");
         printf("On block %s and net %d and branch %d\n",block[whichPin].name,whichNet, active_branch);                  
-        #endif
-
-        if(active_branch==0)
-        {
-          insert(&buckets_left[(block[whichPin].gain+pmax)], whichPin);
-          delete(&buckets_left[block[whichPin].gain+pmax-1], whichPin);
-        }
-
-        else if(active_branch==1)
-        {
-          insert(&buckets_right[(block[whichPin].gain+pmax)], whichPin);
-          delete(&buckets_right[block[whichPin].gain+pmax-1], whichPin);
-        }
-
-
-        #ifdef DEBUG_PART_PLACE 
-        printf("After Delete\n");
-        printf("Case 1\n");
         #endif
         
       }
@@ -212,7 +195,7 @@ void update_case_1(int whichBlock, int active_branch, int whichNet, ListPtr *buc
   }
 }
 
-void update_case_2(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax,int max_gain_right, int max_gain_left)
+void update_case_2(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax,int max_gain_right, int max_gain_left, int level)
 {
   int i;
   int j;
@@ -402,7 +385,7 @@ void update_case_move(int active_branch, int whichBlock, ListPtr *buckets_left, 
 
 }
 
-void update_case_3(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left)
+void update_case_3(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left, int level)
 {
   int i;
   int j;
@@ -469,7 +452,7 @@ void update_case_3(int whichBlock, int active_branch, int whichNet, ListPtr *buc
   }
 }
 
-void update_case_4(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left)
+void update_case_4(int whichBlock, int active_branch, int whichNet, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_right, int max_gain_left, int level)
 {
   int i;
   int j;
