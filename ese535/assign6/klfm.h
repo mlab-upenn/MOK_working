@@ -19,6 +19,9 @@ int initialize_right_branch(boolean *is_clock, int *left,int *right, int root, i
 // Determine which branch to perform KLFM pass on
 int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int active_branch, ListPtr *buckets_left, ListPtr *buckets_right, int capacity, int current_height);
 
+// Determine which branch to perform KLFM pass on
+int level_which_branch(int location, int max_gain_left, int max_gain_right, int *left, int pmax, int active_branch, ListPtr *buckets_left, ListPtr *buckets_right, int capacity, int current_height);
+
 // Update gains on the left branch
 int update_gains_left(int active_branch, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_left, int current_cut);
 
@@ -55,6 +58,9 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
 void print_f_and_t(void);
 
 void enforce_balance(int switch_num, int capacity, int pmax, ListPtr *buckets_left, ListPtr *buckets_right, int current_cut);
+int find_block(int active_branch, ListPtr * buckets_left, ListPtr * buckets_right, int max_gain_left, int max_gain_right, int pmax);
+int level_KLFM(int current_height, int pmax, boolean *is_clock, int location, int capacity, int cluster_size, int root);
+void fix_levels(int height, int location, int pmax, boolean *is_clock, int capacity, int cluster_size, int root);
 
 
 

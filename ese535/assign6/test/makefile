@@ -1,6 +1,6 @@
 # makefile to run some sched_main tests
 
-BLIF = example.blif e64.blif s1423.blif alu4.blif frisc.blif blob_merge.blif bgm.blif diffeq1.blif diffeq2.blif sha.blif stereovision0.blif stereovision1.blif 
+BLIF = example.blif e64.blif s1423.blif alu4.blif frisc.blif diffeq1.blif diffeq2.blif sha.blif 
 
 assign3: $(BLIF:.blif=.cost5) 
 

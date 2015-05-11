@@ -188,7 +188,12 @@ int part_place(int size, int cluster_size, boolean recurse, boolean level_max, b
 int capacity=get_size()*cluster_size/2;
 //printf("CAPACITY INTITIAL: %d\n", capacity);
 
-recurse_tree(tree_location[root].height, root, pmax, is_clock, capacity, cluster_size, root);
+//recurse_tree(tree_location[root].height, root, pmax, is_clock, capacity, cluster_size, root);
+for(i=0; i<num_blocks; i++)
+{
+
+}
+fix_levels(tree_location[root].height, root, pmax, is_clock, capacity, cluster_size, root);
 
 //#ifdef DEBUG_PART_PLACE
 for(i=0; i<get_size(); i++)

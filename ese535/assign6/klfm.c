@@ -11,12 +11,28 @@
 #include "updategains.h"
 #include <string.h>
 #include "levels.h"
+#include "updategains_level.h"
 
 
 //#define DEBUG_PART_PLACE
 //#define CHECK_GAINS
 
 // Helpers for later
+
+int find_block(int active_branch, ListPtr * buckets_left, ListPtr * buckets_right, int max_gain_left, int max_gain_right, int pmax)
+{
+  int active_block;
+  if(active_branch==0)
+  {
+    active_block=buckets_left[max_gain_left+pmax]->cellNumber;
+  }
+  else if(active_branch==1)
+  {
+    active_block=buckets_right[max_gain_right+pmax]->cellNumber;
+  }
+  printf("got through here no problem\n");
+  return active_block;
+}
 
 void print_f_and_t(void)
 {
@@ -432,6 +448,7 @@ int rec_initialize_right_branch(int *left, int *right, int tree_loc, int max_gai
   {
     if(block[i].left==0 && block[i].loc != GLOBAL_CLOCK_LOC)
     {
+      //printf("about to bucket %d\n",block[i].cost_func+pmax);
       insert(&buckets_right[block[i].gain+pmax],i);
     }
   }
@@ -494,7 +511,6 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
   int left_count=0;
   int right_count=0;
 
-  // Compute the number of blocks in each child. TO DO: update this via the update gains function
   for (i=0; i<num_blocks;i++)
   {
     #ifdef DEBUG_PART_PLACE
@@ -503,34 +519,29 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
 
     if(block[i].loc != GLOBAL_CLOCK_LOC)
     {
-      if(block[i].left==1)
-      {
-        left_count=left_count+1;
-      }
-      
-      if(block[i].left==0)
-      {
-        right_count=right_count+1;
-      }
+          if(block[i].left==1)
+          {
+            left_count=left_count+1;
+          }
+          
+          if(block[i].left==0)
+          {
+            right_count=right_count+1;
+          }
     }
   }
     
-  // Initialize the balance as a float
+
   float balance=0;
 
-  // Compute the balance, ensure that we don't divide by zero
   if((right_count+left_count)!=0)
   {
     balance=(float)left_count/(float)(right_count+left_count);
   }
 
-  // Find the 50/50 split
   int num= (left_count+right_count)>>1;
 
-  // r is the desired ratio we would like to maintain 
   float r=.5;
-  
-  // smax is the maximum deviation from the desired ratio
   int smax=1;
   
   #ifdef DEBUG_PART_PLACE
@@ -540,19 +551,16 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
   printf("max gain right = %d max gain left =%d\n", max_gain_right, max_gain_left);
   #endif
  
-  // Define the lower and upper limits on the deviation from the desired ratio
   float lower= floor(r*((float)right_count+(float)left_count)-(float)smax);
   float upper= floor(r*((float)right_count+(float)left_count)+(float)smax);
+  //printf("lower %f upper %f\n", lower, upper);
 
-  // Initialize active branch to -1 (no good moves available)
+
+
   active_branch=-1;
-
-  // Define some temporary values for control flow
   int temp_left=0;
   int temp_right=0;
 
-    // If there are enough blocks in the left branch
-    // we can consider moving one to the right branch
     if(left_count-1>=lower)
     {
       if(max_gain_left>=0 && left_count>0)
@@ -561,9 +569,6 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         temp_left=1;
       }  
     }
-
-    // If there are enough blocks in the right branch
-    // we can consider moving one to the left branch
     else if (right_count-1>=lower)
       {
         if(max_gain_right>=0 && right_count>0)
@@ -573,8 +578,6 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         }
       }
 
-    // If there was a candidate for a move in both branches
-    // we need to decide which one to pick
     if(temp_left==1 && temp_right==1)
     {
       if(max_gain_left>= max_gain_right)
@@ -586,34 +589,30 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         active_branch=1;
       }
     }
-    // If only a candidate in the left pick the left branch
     else if(temp_left==1 && temp_right ==0)
     {
       active_branch=0;
     }
-    // If only a candidate in the right pick the right branch
     else if(temp_left==0 && temp_right ==1)
     {
       active_branch=1;
     }
-    // If neither then no good moves
     else
     {
       active_branch=-1;
     }
     
-    // Special case if we are at the PEs
-    // If we can stuff all the blocks into one PE, do it.
     if (current_height== 1)
       
     {
+      //printf("current height =1\n");
+      //printf("left_count+right count %d\n", left_count+right_count);
       if(left_count+right_count<=capacity && right_count!=0 && max_gain_right>-pmax)
       {
         active_branch=1;
       }
     }
    
-   // Now some last checks to make sure that we don't violate capacity
     if( active_branch==0)
     {
       if(right_count+1>capacity)
@@ -639,6 +638,8 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
         active_branch=1;
       }
     }
+
+    //printf("ACTIVE BRANCH IMMEDIATELT POST GUARDS: %d\n", active_branch);
     
  // Determine active block (for debugging purposes)
   if(active_branch==0)
@@ -655,10 +656,333 @@ int which_branch(int max_gain_left, int max_gain_right, int *left, int pmax, int
     printf("Active: %s\n",block[buckets_right[(max_gain_right)+pmax]->cellNumber].name);
    #endif
   }
-
-  return active_branch;
+  //printf("GOT HERE\n");
+  //printf("max gain right %d max gain left %d\n",max_gain_right, max_gain_left);
+  if(active_branch==0)
+  {
+    return buckets_left[max_gain_left+pmax]->cellNumber;
+  }
+  else if (active_branch==1)
+  {
+    return buckets_right[max_gain_right+pmax]->cellNumber;
+  }
+  else
+  {
+    return active_branch;
+  }
+  
 }
 
+int level_which_branch(int location, int max_gain_left, int max_gain_right, int *left, int pmax, int active_branch, ListPtr *buckets_left, ListPtr *buckets_right, int capacity, int current_height)
+{
+  int i;
+  int left_count=0;
+  int right_count=0;
+  int active_block_left=-1;
+  int active_block_right=-1;
+  int active_level=-1;
+  int active_block=-1;
+
+  active_level=post_klfm_balance_for_all_levels(location);
+  //printf("active level: %d\n",active_level);
+
+
+  struct listNode *nextCell;
+
+  // If there are any blocks on the left side at all
+  // Alternate can occur at PEs
+  if(max_gain_left>-pmax)
+  {
+    int localBlock=-1;
+    // Loop through all positive gains
+    for(i=max_gain_left; i>-pmax-1; i--)
+    {
+        //printf("Current Bucket: %d\n",i);
+        // Figure out first cell in bucket for gain level
+        nextCell=NULL;
+        localBlock=buckets_left[i+pmax]->cellNumber;
+        //printf("local block: %d\n", localBlock);
+
+        // Make sure that there is something in the bucket
+        // If there is find out what the address of the next block is
+        if(localBlock>0)
+        {
+          nextCell=buckets_left[i+pmax]->nextPtr;
+        }
+        else
+        {
+          continue;
+        }
+
+        // If the current block has a positive gain for the active level
+        // Set it as the choice to be moved from the left.
+        //printf("Found a block the gain at the active level is %d\n",block[localBlock].level_gain[active_level]);
+        if(block[localBlock].level_gain[active_level]>=0)
+        {
+          active_block_left=buckets_left[i+pmax]->cellNumber;
+          break;
+        }
+        // Else if it is not a good gain and there is another block to try
+        // Try the next block, and the next....
+        // Until either a good block is found or there are none left
+        else if(block[nextCell->cellNumber].name!=NULL)
+        {
+          do 
+          {
+            //printf("The next one to check is: %d\n", nextCell->cellNumber);
+
+            if(block[nextCell->cellNumber].level_gain[active_level]>=0)
+            {
+              //printf("Picked active block %d\n", nextCell->cellNumber);
+              active_block_left=nextCell->cellNumber;            }
+            else
+            {
+              //printf("Now gain at the active level is %d\n",block[nextCell->cellNumber].level_gain[active_level]);
+              nextCell=nextCell->nextPtr;
+            }
+            if(active_block_left>=0)
+            {
+              break;
+            }
+          }
+          while(block[nextCell->cellNumber].name !=NULL);
+          
+          if(active_block_left>=0)
+          {
+            break;
+          }
+        }   
+      }
+      //printf("max gain left %d cell number %d\n", i, active_block_left);
+    }
+
+  // If there are any blocks on the left side at all
+  // Alternate can occur at PEs
+  if(max_gain_right>-pmax)
+  {
+    int localBlock=-1;
+    // Loop through all positive gains
+    for(i=max_gain_right; i>-pmax-1; i--)
+    {
+        //printf("Current Bucket: %d\n",i);
+        // Figure out first cell in bucket for gain level
+        nextCell=NULL;
+        localBlock=buckets_right[i+pmax]->cellNumber;
+        //printf("local block: %d\n", localBlock);
+
+        // Make sure that there is something in the bucket
+        // If there is find out what the address of the next block is
+        if(localBlock>0)
+        {
+          nextCell=buckets_right[i+pmax]->nextPtr;
+        }
+        else
+        {
+          continue;
+        }
+
+        // If the current block has a positive gain for the active level
+        // Set it as the choice to be moved from the left.
+        //printf("Found a block the gain at the active level is %d\n",block[localBlock].level_gain[active_level]);
+        if(block[localBlock].level_gain[active_level]>=0)
+        {
+          active_block_right=buckets_right[i+pmax]->cellNumber;
+          break;
+        }
+        // Else if it is not a good gain and there is another block to try
+        // Try the next block, and the next....
+        // Until either a good block is found or there are none left
+        else if(block[nextCell->cellNumber].name!=NULL)
+        {
+          do 
+          {
+            //printf("The next one to check is: %d\n", nextCell->cellNumber);
+
+            if(block[nextCell->cellNumber].level_gain[active_level]>=0)
+            {
+              active_block_right=nextCell->cellNumber;
+              break;
+            }
+            else
+            {
+              //printf("Now gain at the active level is %d\n",block[nextCell->cellNumber].level_gain[active_level]);
+              nextCell=nextCell->nextPtr;
+            }
+            if(active_block_right>=0)
+            {
+              break;
+            } 
+          }
+          while(block[nextCell->cellNumber].name !=NULL);
+        } 
+        if(active_block_right>=0)
+        {
+          break;
+        }  
+
+        }
+      //printf("max gain right %d cell number %d\n", i, active_block_right);
+  }
+
+  //printf("never got here\n");
+  for (i=0; i<num_blocks;i++)
+  {
+    #ifdef DEBUG_PART_PLACE
+    printf("Block: %s, i= %d, is free: %d, gain is: %d, is left? %d\n", block[i].name,i, block[i].free, block[i].gain, block[i].left);
+    #endif
+
+    if(block[i].loc != GLOBAL_CLOCK_LOC)
+    {
+          if(block[i].left==1)
+          {
+            left_count=left_count+1;
+          }
+          
+          if(block[i].left==0)
+          {
+            right_count=right_count+1;
+          }
+    }
+  }
+    
+
+  float balance=0;
+
+  if((right_count+left_count)!=0)
+  {
+    balance=(float)left_count/(float)(right_count+left_count);
+  }
+
+  int num= (left_count+right_count)>>1;
+
+  float r=.5;
+  int smax=1;
+  
+  #ifdef DEBUG_PART_PLACE
+  printf("Balance: %f, r %f\n",balance, r);
+  printf("Left count %d, Right count %d\n", left_count,right_count);
+  printf("Capacity: %d, num %d\n", capacity, num);
+  printf("max gain right = %d max gain left =%d\n", max_gain_right, max_gain_left);
+  #endif
+ 
+  float lower= floor(r*((float)right_count+(float)left_count)-(float)smax);
+  float upper= floor(r*((float)right_count+(float)left_count)+(float)smax);
+
+
+
+  active_branch=-1;
+  int temp_left=0;
+  int temp_right=0;
+  //printf("active block left %d, active block right %d active level %d\n", active_block_left, active_block_right, active_level);
+      
+
+    if(left_count-1>=lower && active_block_left >=0)
+    {
+      if(left_count>0  && block[active_block_left].level_gain[active_level]>=0)
+      {
+        //printf("temp left\n");
+        temp_left=1;
+      }  
+    }
+    else if (right_count-1>=lower && active_block_right>=0)
+      {
+        if(right_count>0 && block[active_block_right].level_gain[active_level]>=0)
+        {
+          //printf("temp right\n");
+          temp_right=1;
+        }
+      }
+
+    if(temp_left==1 && temp_right==1 && active_block_right>=0 && active_block_left>=0)
+    {
+      if(block[active_block_right].level_gain[active_level]>=block[active_block_left].level_gain[active_level])
+      {
+        active_branch=1;
+      }
+      else
+      {
+        active_branch=0;
+      }
+    }
+    else if(temp_left==1 && temp_right ==0)
+    {
+      active_branch=0;
+    }
+    else if(temp_left==0 && temp_right ==1)
+    {
+      active_branch=1;
+    }
+    else
+    {
+      active_branch=-1;
+    }
+
+
+    
+    if( active_branch==0)
+    {
+      if(right_count+1>capacity)
+      {
+        active_branch=-1;
+      }
+    }
+
+    if( active_branch==1)
+    {
+      if(left_count+1>capacity)
+      {
+        active_branch=-1;
+      }
+    }
+    if(active_branch ==-1)
+    {
+      if(left_count>capacity)
+      {
+        active_branch=0;
+      }
+      if(right_count>capacity)
+      {
+        active_branch=1;
+      }
+    }
+ // Determine active block (for debugging purposes)
+  if(active_branch==0)
+  {
+    #ifdef DEBUG_PART_PLACE
+    printf("Max Gain: %d, Bucket: %d\n", max_gain_left, (max_gain_left)+pmax);
+    printf("Active: %s\n",block[buckets_left[(max_gain_left)+pmax]->cellNumber].name);
+    #endif
+  }
+  else if(active_branch==1)
+  {
+   #ifdef DEBUG_PART_PLACE
+    printf("Max Gain: %d, Bucket: %d\n", max_gain_right, (max_gain_right)+pmax);
+    printf("Active: %s\n",block[buckets_right[(max_gain_right)+pmax]->cellNumber].name);
+   #endif
+  }
+  if(active_block_left>=0 && active_branch ==0)
+  {
+    return active_block_left;
+  }
+  else if(active_block_right>=0 && active_branch ==1)
+  {
+    return active_block_right;
+  }
+  else if(active_branch==0 && active_block_left==-1)
+  {
+    return buckets_left[max_gain_left+pmax]->cellNumber;
+  }
+  else if(active_branch==1 && active_block_right==-1)
+  {
+    return buckets_right[max_gain_right+pmax]->cellNumber;
+  }
+  else
+  {
+    return active_branch;
+  }
+  
+  
+}
 
 int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capacity, int cluster_size, int root)
 {
@@ -670,6 +994,7 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
   int previous_cut;
   int passes=0;
   int active_branch;
+  int active_block;
 
   // Figure out how many blocks in this switch
   int number_of_blocks=tree_location[location].used_slots;
@@ -713,6 +1038,7 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
   // Max gains
   l_max_gain_left=0;
   l_max_gain_right=0;
+  initialize_gain_by_level(location);
   rec_initialize_left_branch(sub_left, sub_right, location, l_max_gain_left, pmax, buckets_left);
   //printf("Prelim max gain left %d\n", l_max_gain_left);
   rec_initialize_right_branch(sub_left, sub_right, location, l_max_gain_right, pmax, buckets_right);
@@ -720,7 +1046,7 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
   current_cut=calculate_cut(sub_left);
   //printf("Current Cut after initialization: %d\n", current_cut);
   previous_cut=current_cut+1;
-  initialize_gain_by_level(location);
+
 
   /* KLFM */
   while(current_cut<=previous_cut && passes<15)
@@ -762,16 +1088,149 @@ int KLFM(int current_height, int pmax, boolean *is_clock, int location, int capa
         printList(buckets_right[i]); 
       }        
       #endif
+      //printf("got here\n");
 
-      // Select active branch
-      active_branch=which_branch(l_max_gain_left,l_max_gain_right,sub_left, pmax, active_branch, buckets_left, buckets_right, capacity, current_height);
-      if(active_branch==-1)
+     // Regular move
+       active_block=which_branch(l_max_gain_left, l_max_gain_right, sub_left, pmax, active_branch, buckets_left, buckets_right, capacity, current_height);
+        if(active_block==-1)
+          break;
+      //printf("active block is %d\n", active_block);
+      //printf("about to update the gains\n");
+      current_cut=update_gains(active_block, buckets_left, buckets_right, pmax, l_max_gain_left, l_max_gain_right, current_cut);
+
+      #ifdef DEBUG_PART_PLACE
+      printf("Current Cut after update %d\n", current_cut);
+      #endif
+
+      // Add 1 to locked nodes count
+      locked_nodes=locked_nodes+1;
+    }
+  }
+  return(current_cut);
+}
+
+int level_KLFM(int current_height, int pmax, boolean *is_clock, int location, int capacity, int cluster_size, int root)
+{
+  // Housekeeping
+  int i;
+  int l_max_gain_left;
+  int l_max_gain_right;
+  int current_cut;
+  int previous_cut;
+  int passes=0;
+  int active_branch;
+  int active_block;
+
+  // Figure out how many blocks in this switch
+  int number_of_blocks=tree_location[location].used_slots;
+  //printf("NUMBER OF BLOCKS %d\n", number_of_blocks);
+
+  // Initialize Gain array
+  int *l_gain = (int *)malloc(num_blocks*sizeof(int));
+  for (i=0; i<num_blocks; i++)
+  l_gain[i]=0;
+
+
+  // Intialize buckets
+  ListPtr *buckets_left;
+  buckets_left=(ListPtr*)malloc(((pmax*2)+1)*sizeof(ListPtr));
+ 
+  ListPtr *buckets_right;
+  buckets_right=(ListPtr*)malloc(((pmax*2)+1)*sizeof(ListPtr));
+
+  // Initialize left array with -1 signifying index is not in this switch
+  int *sub_left=(int *)malloc(sizeof(int)*num_blocks);
+  for (i=0; i<num_blocks;i++)
+  {
+  block[i].left=-1;
+  sub_left[i]=-1;
+  }
+
+  // Initialize left array with -1 signifying index is not in this switch
+  int *sub_right=(int *)malloc(sizeof(int)*num_blocks);
+  for (i=0; i<num_blocks;i++)
+  {
+  block[i].left=-1;
+  sub_right[i]=-1;
+  }
+
+  // Initial partition
+  repartition(current_height, number_of_blocks, sub_left, sub_right, location, cluster_size, root);
+
+  // Recompute F and T's
+  sub_F_and_T(current_height, sub_left);
+
+  // Max gains
+  l_max_gain_left=0;
+  l_max_gain_right=0;
+ 
+  rec_initialize_left_branch(sub_left, sub_right, location, l_max_gain_left, pmax, buckets_left);
+  //printf("Prelim max gain left %d\n", l_max_gain_left);
+  rec_initialize_right_branch(sub_left, sub_right, location, l_max_gain_right, pmax, buckets_right);
+  //printf("Prelim max gain right %d\n", l_max_gain_right);
+  current_cut=calculate_cut(sub_left);
+  //printf("Current Cut after initialization: %d\n", current_cut);
+  //initialize_gain_by_level(location);
+  previous_cut=current_cut+1;
+
+
+  /* KLFM */
+  while(current_cut<=previous_cut && passes<15)
+  {
+    passes=passes+1;
+    free_blocks();
+    int locked_nodes=0;
+
+    #ifdef DEBUG_PART_PLACE 
+    printf("Pass Number: %d\n",passes);
+    #endif
+
+    while(locked_nodes<(num_blocks)&& ((l_max_gain_right>=0 && l_max_gain_right>= l_max_gain_left) || ( l_max_gain_left>=0 && l_max_gain_left>= l_max_gain_right)))
+    {
+
+      // Find Max Gain Left
+      l_max_gain_left=compute_max_gain_left(pmax, buckets_left);
+      
+      #ifdef DEBUG_PART_PLACE
+      printf("max gain left: %d\n",l_max_gain_left);
+      for (i=0; i<((pmax*2)+1); i++)
+      {
+        printf("Gain: %d\n", (i-(pmax)));
+        printList(buckets_left[i]); 
+      }
+      #endif
+
+      // Find Max Gain Right
+      l_max_gain_right=compute_max_gain_right(pmax, buckets_right);
+
+      if(l_max_gain_right<-pmax && l_max_gain_left<-pmax)
         break;
+    
+      #ifdef DEBUG_PART_PLACE
+      printf("max gain right: %d\n",l_max_gain_right);
+      for (i=0; i<((pmax*2)+1); i++)
+      {
+        printf("Gain: %d\n", (i-(pmax)));
+        printList(buckets_right[i]); 
+      }        
+      #endif
+      //printf("got here\n");
+      initialize_gain_by_level(location);
 
+ // Level move
+      //printf("The problem is in level which branch\n");
+      active_block=level_which_branch(location, l_max_gain_left,l_max_gain_right,sub_left, pmax, active_branch, buckets_left, buckets_right, capacity, current_height);
+      if(active_block==-1)
+        break;
+      //printf("never got here\n");
       previous_cut=current_cut;
 
       // Update gains
-      current_cut=update_gains(active_branch, buckets_left, buckets_right, pmax, l_max_gain_left, l_max_gain_right, current_cut);
+      current_cut=update_gains(active_block, buckets_left, buckets_right, pmax, l_max_gain_left, l_max_gain_right, current_cut);
+      //printf("The problem is in level update gains\n");
+      level_update_gains(active_block, buckets_left, buckets_right, pmax, l_max_gain_left, l_max_gain_right, current_cut);
+
+     
 
       #ifdef DEBUG_PART_PLACE
       printf("Current Cut after update %d\n", current_cut);
@@ -920,7 +1379,7 @@ void recurse_tree(int height, int location, int pmax, boolean *is_clock, int cap
   int i;
   if(height==0)
   {
-    printf("Location %d called recurse, but it is a PE\n", location);
+    //printf("Location %d called recurse, but it is a PE\n", location);
     return;
   }
   else
@@ -932,17 +1391,19 @@ void recurse_tree(int height, int location, int pmax, boolean *is_clock, int cap
     int right_out;
     printf("KLFM CALL ON TREE LOCATION %d\n", location);
     //initialize_levels();
-    temp=KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
-    post_klfm_balance_for_all_levels(location);
-    printf("Parents blocks = %d\n",tree_used_slots(location));
-    printf("Left blocks = %d\n", tree_used_slots(tree_location[location].left));
-    printf("Right blocks= %d\n",tree_used_slots(tree_location[location].right));
+    KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
+    //level_KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
+    //temp=KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
+    //post_klfm_balance_for_all_levels(location);
+    //printf("Parents blocks = %d\n",tree_used_slots(location));
+    //printf("Left blocks = %d\n", tree_used_slots(tree_location[location].left));
+    //printf("Right blocks= %d\n",tree_used_slots(tree_location[location].right));
 
     //printf("BEGIN REARRANGE \n");
     rearrange_blocks(location);
     //printf("END REARRANGE BLOCKS\n");
     //printf("POST KLFM CUT %d\n",temp);
-    printf("NEW ROUND\n");
+    //printf("NEW ROUND\n");
     height=height-1;
     capacity=capacity/2;
     //printf("Capacity %d\n", capacity);
@@ -952,5 +1413,45 @@ void recurse_tree(int height, int location, int pmax, boolean *is_clock, int cap
     
   }
 }
+
+void fix_levels(int height, int location, int pmax, boolean *is_clock, int capacity, int cluster_size, int root)
+{
+  int i;
+  if(height==0)
+  {
+    printf("LEVELS: Location %d called recurse, but it is a PE\n", location);
+    return;
+  }
+  else
+  {
+    int temp;
+    int left_in;
+    int left_out;
+    int right_in;
+    int right_out;
+    printf("KLFM LEVEL CALL ON TREE LOCATION %d\n", location);
+    //initialize_levels();
+    temp=level_KLFM(height, pmax, is_clock, location, capacity, cluster_size, root);
+    //post_klfm_balance_for_all_levels(location);
+    //printf("Parents blocks = %d\n",tree_used_slots(location));
+    //printf("Left blocks = %d\n", tree_used_slots(tree_location[location].left));
+    //printf("Right blocks= %d\n",tree_used_slots(tree_location[location].right));
+
+    //printf("BEGIN REARRANGE \n");
+    rearrange_blocks(location);
+    //printf("END REARRANGE BLOCKS\n");
+    //printf("POST KLFM CUT %d\n",temp);
+    //printf("NEW ROUND\n");
+    height=height-1;
+    capacity=capacity/2;
+    //printf("Capacity %d\n", capacity);
+    recurse_tree(height, tree_location[location].left, pmax, is_clock, capacity, cluster_size, root);
+    recurse_tree(height, tree_location[location].right, pmax, is_clock, capacity, cluster_size, root);
+    return;
+    
+  }
+
+}
+
 
 

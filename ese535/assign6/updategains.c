@@ -13,7 +13,7 @@
 
 //#define DEBUG_PART_PLACE
 
-int update_gains(int active_branch, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_left, int max_gain_right, int current_cut)
+int update_gains(int active_block, ListPtr *buckets_left, ListPtr *buckets_right, int pmax, int max_gain_left, int max_gain_right, int current_cut)
 {
   int i;
   int j;
@@ -25,6 +25,15 @@ int update_gains(int active_branch, ListPtr *buckets_left, ListPtr *buckets_righ
   int start=0;
   int numberOfNets=0;
   int whichBlock;
+  int active_branch=0;
+  if(block[active_block].left==1)
+  {
+    active_branch=0;
+  }
+  else if(block[active_block].left==0)
+  {
+    active_branch=1;
+  }
 
   // Which block to move
   if(active_branch==0)

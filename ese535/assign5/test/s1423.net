@@ -1,0 +1,507 @@
+.global pclk
+
+.input pg7
+pinlist: pg7 
+
+.input pg6
+pinlist: pg6 
+
+.input pg5
+pinlist: pg5 
+
+.input pg4
+pinlist: pg4 
+
+.input pg3
+pinlist: pg3 
+
+.input pg2
+pinlist: pg2 
+
+.input pg1
+pinlist: pg1 
+
+.input pg0
+pinlist: pg0 
+
+.input pg9
+pinlist: pg9 
+
+.input pg8
+pinlist: pg8 
+
+.input pclk
+pinlist: pclk 
+
+.input pg10
+pinlist: pg10 
+
+.input pg12
+pinlist: pg12 
+
+.input pg11
+pinlist: pg11 
+
+.input pg14
+pinlist: pg14 
+
+.input pg13
+pinlist: pg13 
+
+.input pg16
+pinlist: pg16 
+
+.input pg15
+pinlist: pg15 
+
+.output out:pg701bf
+pinlist: pg701bf 
+
+.output out:pg702
+pinlist: pg702 
+
+.output out:pg726
+pinlist: pg726 
+
+.output out:pg727
+pinlist: pg727 
+
+.output out:pg729
+pinlist: pg729 
+
+.clb out:pg729
+pinlist: pg7 pg14 [410] [411] [1447] ng28 ng92 [173] open open open open open open open open open ng29 pg729 open pclk 
+subblock: out:pg729 0 0 0 0 18 open 
+subblock: ng29 1 ble_3 open open 17 20 
+subblock: pg729 2 3 4 open 18 20 
+subblock: [259] 5 ble_1 6 7 19 open 
+
+.clb ng57
+pinlist: [296] [346] [347] pg14 open open open open open open open open open open open open ng57 open open open pclk 
+subblock: ng57 0 1 2 ble_1 16 20 
+subblock: [1469] ble_0 3 open open 17 open 
+
+.clb out:pg726
+pinlist: pg7 ng52 ng51 [157] ng90 ng524 [268] [1442] open open open open open open open open open [223] [370] open open 
+subblock: out:pg726 0 0 0 0 open open 
+subblock: [223] 1 2 3 open 17 open 
+subblock: [370] 4 5 6 7 18 open 
+
+.clb pg726
+pinlist: pg14 ng700 [370] ng53 [223] [157] ng51 [228] [376] [410] [411] open open open open open pg726 ng52 [234] open pclk 
+subblock: pg726 0 1 2 ble_3 16 20 
+subblock: ng52 0 3 4 5 17 20 
+subblock: [234] ble_1 3 6 5 18 open 
+subblock: [1453] 7 8 9 10 19 open 
+
+.clb pg701bf
+pinlist: pg15 [273] [1422] pg16 ng83 ng66 open open open open open open open open open open pg701bf ng26 [1442] open pclk 
+subblock: pg701bf 0 open open open 16 open 
+subblock: ng26 1 2 open open 17 20 
+subblock: [1442] 3 4 5 open 18 open 
+
+.clb pg16
+pinlist: pg7 pg14 ng90 ng616 ng589 [225] open open open open open open open open open open pg16 open pg727 ng74 pclk 
+subblock: pg16 0 0 0 0 16 open 
+subblock: out:pg701bf 0 0 0 0 open open 
+subblock: pg727 1 2 3 open 18 open 
+subblock: ng74 4 5 open open 19 20 
+
+.clb pg7
+pinlist: pg14 ng616 [252] ng53 [157] ng28 ng29 ng92 [173] open open open open open open open pg7 ng68 ng51 [220] pclk 
+subblock: pg7 ble_0 ble_0 ble_0 ble_0 16 open 
+subblock: ng68 0 1 2 open 17 20 
+subblock: ng51 0 3 ble_2 4 18 20 
+subblock: [220] 5 6 7 8 19 open 
+
+.clb out:pg727
+pinlist: pg7 ng74 ng524 [414] [415] ng68 ng67 [329] [1464] ng24 ng25 ng26 ng700 open open open open [225] [252] [273] open 
+subblock: out:pg727 0 0 0 0 open open 
+subblock: [225] 1 2 3 4 17 open 
+subblock: [252] 5 6 7 8 18 open 
+subblock: [273] 9 10 11 12 19 open 
+
+.clb ng59
+pinlist: pg14 ng75 ng589 [163] ng58 [346] [347] open open open open open open open open open ng59 ng76 open open pclk 
+subblock: ng59 0 ble_2 open open 16 20 
+subblock: ng76 1 ble_1 2 3 17 20 
+subblock: [245] 4 ble_0 5 6 18 open 
+
+.clb ng83
+pinlist: ng589 [240] [163] ng476 [329] [1464] pg14 [164] open open open open open open open open ng83 ng75 ng67 ng40 pclk 
+subblock: ng83 0 1 open open 16 20 
+subblock: ng75 ble_1 0 2 open 17 20 
+subblock: ng67 ble_2 3 4 5 18 20 
+subblock: ng40 6 ble_3 7 open 19 20 
+
+.clb ng60
+pinlist: [184] [185] ng42 ng45 ng101 ng104 ng43 ng102 pg6 ng90 ng524 [1442] open open open open ng60 [231] [230] [376] pclk 
+subblock: ng60 0 1 open open 16 20 
+subblock: [231] 2 3 4 5 17 open 
+subblock: [230] 6 7 open open 18 open 
+subblock: [376] 8 9 10 11 19 open 
+
+.clb ng43
+pinlist: ng262 ng259 ng31 ng30 [220] ng36 ng37 ng38 ng522 ng68 ng67 [329] [1464] open open open ng43 [218] [286] [196] pclk 
+subblock: ng43 ble_0 0 1 open 16 20 
+subblock: [218] 2 3 4 open 17 open 
+subblock: [286] 5 6 7 8 18 open 
+subblock: [196] 9 10 11 12 19 open 
+
+.clb pg13
+pinlist: pg7 pg14 [279] ng33 ng83 [495] [496] open open open open open open open open open pg13 ng32 [1443] [1447] pclk 
+subblock: pg13 0 0 0 0 16 open 
+subblock: ng32 1 2 open open 17 20 
+subblock: [1443] 3 ble_1 open open 18 open 
+subblock: [1447] 1 4 5 6 19 open 
+
+.clb [228]
+pinlist: [231] [230] [1450] [1452] ng31 ng30 ng32 [220] pg14 ng24 ng700 [1415] ng91 ng62 open open [228] [279] [1422] [1463] open 
+subblock: [228] 0 1 2 3 16 open 
+subblock: [279] 4 5 6 7 17 open 
+subblock: [1422] 8 9 10 11 18 open 
+subblock: [1463] 12 13 open open 19 open 
+
+.clb ng25
+pinlist: pg14 ng24 ng700 ng524 [408] [414] [415] ng53 ng60 [157] [1473] open open open open open ng25 [240] [184] [185] pclk 
+subblock: ng25 0 1 ble_0 2 16 20 
+subblock: [240] 3 4 5 6 17 open 
+subblock: [184] 7 8 9 10 18 open 
+subblock: [185] 0 7 8 9 19 open 
+
+.clb ng31
+pinlist: pg14 ng30 [220] [286] [1443] ng53 ng61 [157] [1463] open open open open open open open ng31 ng38 ng172 [329] pclk 
+subblock: ng31 0 ble_0 1 2 16 20 
+subblock: ng38 0 3 open open 17 20 
+subblock: ng172 ble_0 1 2 4 18 open 
+subblock: [329] 5 6 7 8 19 open 
+
+.clb pg15
+pinlist: pg7 pg14 ng616 ng90 [495] [496] [1411] open open open open open open open open open pg15 ng65 ng101 open pclk 
+subblock: pg15 0 0 0 0 16 open 
+subblock: ng65 1 ble_1 2 open 17 20 
+subblock: ng101 3 4 5 6 18 open 
+
+.clb pg9
+pinlist: pg7 pg14 ng90 ng616 ng74 ng524 [414] [415] pg6 ng91 open open open open open open pg9 ng259 [163] [162] open 
+subblock: pg9 0 0 0 0 16 open 
+subblock: ng259 0 1 2 3 17 open 
+subblock: [163] 4 5 6 7 18 open 
+subblock: [162] 8 1 9 3 19 open 
+
+.clb ng92
+pinlist: pg14 pg13 [392] [393] [234] [157] ng522 open open open open open open open open open ng92 ng53 ng36 open pclk 
+subblock: ng92 0 1 2 3 16 20 
+subblock: ng53 0 ble_1 4 5 17 20 
+subblock: ng36 0 ble_2 6 open 18 20 
+
+.clb pg6
+pinlist: pg7 [395] [396] ng90 ng524 [1442] ng53 ng62 ng61 [157] open open open open open open pg6 ng85 ng618 [236] pclk 
+subblock: pg6 0 0 0 0 16 open 
+subblock: ng85 1 2 open open 17 20 
+subblock: ng618 3 4 5 open 18 open 
+subblock: [236] 6 7 8 9 19 open 
+
+.clb pg5
+pinlist: pg7 pg14 [288] ng616 ng62 ng91 ng59 ng90 open open open open open open open open pg5 ng39 ng476 [373] pclk 
+subblock: pg5 0 0 0 0 16 open 
+subblock: ng39 1 2 open open 17 20 
+subblock: ng476 1 3 open open 18 open 
+subblock: [373] 4 5 6 7 19 open 
+
+.clb ng86
+pinlist: pg14 pg13 ng43 ng45 ng44 ng262 ng36 ng38 ng522 [1444] pg10 ng91 open open open open ng86 [281] [346] [393] pclk 
+subblock: ng86 0 1 open open 16 20 
+subblock: [281] 2 3 4 5 17 open 
+subblock: [346] 6 7 8 9 18 open 
+subblock: [393] 10 11 ble_0 open 19 open 
+
+.clb [392]
+pinlist: pg10 ng92 ng86 pg14 ng85 ng91 ng616 ng82 ng90 ng38 ng524 [1442] open open open open [392] [395] [399] [411] open 
+subblock: [392] 0 1 2 open 16 open 
+subblock: [395] 3 4 5 6 17 open 
+subblock: [399] 3 7 5 6 18 open 
+subblock: [411] 8 9 10 11 19 open 
+
+.clb ng82
+pinlist: [399] [400] ng259 [278] ng91 [346] [347] [1459] pg6 ng35 ng90 [373] open open open open ng82 ng45 [157] [268] pclk 
+subblock: ng82 0 1 open open 16 20 
+subblock: ng45 2 3 open open 17 20 
+subblock: [157] 4 5 6 7 18 open 
+subblock: [268] 8 9 10 11 19 open 
+
+.clb ng33
+pinlist: pg14 ng32 [218] [236] ng43 ng45 ng44 ng262 pg9 ng91 ng616 open open open open open ng33 ng62 [278] [400] pclk 
+subblock: ng33 0 1 ble_0 2 16 20 
+subblock: ng62 0 3 open open 17 20 
+subblock: [278] 4 5 6 7 18 open 
+subblock: [400] 8 0 9 10 19 open 
+
+.clb ng58
+pinlist: [333] [346] [347] [1461] ng259 [281] ng92 ng34 ng39 ng172 open open open open open open ng58 ng46 [288] [164] pclk 
+subblock: ng58 0 1 2 3 16 20 
+subblock: ng46 ble_1 4 5 open 17 20 
+subblock: [288] 6 7 8 9 18 open 
+subblock: [164] 6 7 8 9 19 open 
+
+.clb [414]
+pinlist: ng92 ng34 ng172 ng618 ng36 ng38 ng522 [1444] pg0 ng74 ng90 pg5 ng83 ng524 open open [414] [415] [1411] [1452] open 
+subblock: [414] 0 1 2 3 16 open 
+subblock: [415] 4 5 6 7 17 open 
+subblock: [1411] 8 9 10 open 18 open 
+subblock: [1452] 11 12 10 13 19 open 
+
+.clb [471]
+pinlist: ng44 ng103 ng59 ng58 pg14 ng61 open open open open open open open open open open [471] [1459] [1461] [1473] open 
+subblock: [471] 0 1 open open 16 open 
+subblock: [1459] 2 3 open open 17 open 
+subblock: [1461] 3 4 open open 18 open 
+subblock: [1473] 5 4 open open 19 open 
+
+.clb [408]
+pinlist: ng83 ng524 [410] [411] ng45 ng104 ng43 ng42 ng102 ng101 ng44 ng103 open open open open [408] [470] [473] [1414] open 
+subblock: [408] 0 1 2 3 16 open 
+subblock: [470] 4 5 open open 17 open 
+subblock: [473] 6 7 8 9 18 open 
+subblock: [1414] 6 10 8 11 19 open 
+
+.clb [469]
+pinlist: [251] [471] [473] [1414] ng26 ng25 ng37 ng90 ng524 [1442] ng44 ng46 ng103 ng105 open open [469] [1415] [1444] [1450] open 
+subblock: [469] 0 1 2 3 16 open 
+subblock: [1415] 4 5 open open 17 open 
+subblock: [1444] 6 7 8 9 18 open 
+subblock: [1450] 10 11 12 13 19 open 
+
+.clb ng30
+pinlist: pg14 [220] ng40 [164] ng45 ng104 ng92 ng34 ng172 ng618 open open open open open open ng30 ng41 [251] [347] pclk 
+subblock: ng30 0 ble_0 1 open 16 20 
+subblock: ng41 0 2 ble_1 3 17 20 
+subblock: [251] 4 5 open open 18 open 
+subblock: [347] 6 7 8 9 19 open 
+
+.clb ng63
+pinlist: pg14 [410] [411] ng65 ng616 pg9 ng90 ng46 ng105 [469] [470] open open open open open ng63 ng66 ng589 ng700 pclk 
+subblock: ng63 0 ble_0 1 2 16 20 
+subblock: ng66 0 3 ble_1 4 17 20 
+subblock: ng589 5 0 6 4 18 open 
+subblock: ng700 7 8 9 10 19 open 
+
+.clb ng71
+pinlist: pg3 [213] [1474] ng69 ng476 [196] ng90 ng524 [256] [1442] open open open open open open ng71 ng70 [410] open pclk 
+subblock: ng71 0 1 2 open 16 20 
+subblock: ng70 3 ble_1 4 5 17 20 
+subblock: [410] 6 7 8 9 18 open 
+
+.clb ng87
+pinlist: pg11 pg14 ng94 ng92 ng54 ng34 ng172 ng90 [495] [496] [1409] pg0 [214] [183] open open ng87 [239] ng104 [1474] pclk 
+subblock: ng87 0 1 2 ble_0 16 20 
+subblock: [239] 3 4 5 6 17 open 
+subblock: ng104 7 8 9 10 18 open 
+subblock: [1474] 11 12 13 open 19 open 
+
+.clb ng81
+pinlist: [312] [313] [330] ng90 pg10 pg14 pg13 ng86 ng75 ng589 [163] [1471] open open open open ng81 [1464] [1467] [1472] pclk 
+subblock: ng81 0 1 open open 16 20 
+subblock: [1464] 2 3 open open 17 open 
+subblock: [1467] 4 5 6 7 18 open 
+subblock: [1472] 8 9 10 11 19 open 
+
+.clb pg8
+pinlist: pg7 ng70 [188] [1426] [1427] pg14 ng84 ng91 pg3 ng90 ng77 open open open open open pg8 ng616 [388] [1409] open 
+subblock: pg8 0 0 0 0 16 open 
+subblock: ng616 1 2 3 4 17 open 
+subblock: [388] 5 6 7 ble_1 18 open 
+subblock: [1409] 8 9 10 open 19 open 
+
+.clb pg2
+pinlist: pg7 ng57 [346] [347] [1462] pg14 ng91 ng81 ng616 open open open open open open open pg2 [296] [312] open open 
+subblock: pg2 0 0 0 0 16 open 
+subblock: [296] 1 2 3 4 17 open 
+subblock: [312] 5 6 7 8 18 open 
+
+.clb pg14
+pinlist: pg7 [239] ng56 [172] ng616 [196] open open open open open open open open open open pg14 ng54 ng55 ng69 pclk 
+subblock: pg14 0 0 0 0 16 open 
+subblock: ng54 ble_0 1 open open 17 20 
+subblock: ng55 ble_0 ble_2 2 3 18 20 
+subblock: ng69 ble_0 ble_3 4 5 19 20 
+
+.clb pg11
+pinlist: pg7 pg14 ng36 ng522 ng90 [495] [496] [1410] ng57 [346] [347] [1462] open open open open pg11 ng37 ng103 [333] pclk 
+subblock: pg11 0 0 0 0 16 open 
+subblock: ng37 1 2 ble_1 3 17 20 
+subblock: ng103 4 5 6 7 18 open 
+subblock: [333] 8 9 10 11 19 open 
+
+.clb pg10
+pinlist: pg7 pg14 [173] ng90 ng71 ng616 ng91 open open open open open open open open open pg10 ng28 [183] [389] pclk 
+subblock: pg10 0 0 0 0 16 open 
+subblock: ng28 1 ble_1 2 open 17 20 
+subblock: [183] 1 3 4 5 18 open 
+subblock: [389] ble_0 1 6 5 19 open 
+
+.clb ng24
+pinlist: pg14 ng700 ng86 [1467] ng53 ng61 [157] open open open open open open open open open ng24 ng90 [174] open pclk 
+subblock: ng24 0 ble_0 1 open 16 20 
+subblock: ng90 ble_1 2 3 open 17 20 
+subblock: [174] 0 4 5 6 18 open 
+
+.clb ng35
+pinlist: pg14 pg8 ng84 ng64 ng90 ng58 ng77 ng76 open open open open open open open open ng35 [496] [1462] [1471] pclk 
+subblock: ng35 0 ble_0 open open 16 20 
+subblock: [496] 1 2 3 4 17 open 
+subblock: [1462] 5 0 open open 18 open 
+subblock: [1471] 6 7 open open 19 open 
+
+.clb pg3
+pinlist: pg7 ng43 ng262 ng259 pg14 ng55 [172] [274] [1472] open open open open open open open pg3 ng44 ng56 ng77 pclk 
+subblock: pg3 0 0 0 0 16 open 
+subblock: ng44 1 ble_1 2 3 17 20 
+subblock: ng56 4 5 ble_2 6 18 20 
+subblock: ng77 7 8 open open 19 20 
+
+.clb ng64
+pinlist: pg14 ng63 ng616 [171] [174] ng72 ng73 ng71 ng75 ng76 ng77 [163] open open open open ng64 ng61 [188] [274] pclk 
+subblock: ng64 0 ble_0 1 2 16 20 
+subblock: ng61 3 4 open open 17 20 
+subblock: [188] 5 6 7 open 18 open 
+subblock: [274] 8 9 10 11 19 open 
+
+.clb [214]
+pinlist: pg14 ng63 ng90 ng616 pg8 ng91 pg2 ng76 ng73 ng69 open open open open open open [214] [313] [1410] [1426] open 
+subblock: [214] 0 1 2 3 16 open 
+subblock: [313] 4 0 5 3 17 open 
+subblock: [1410] 6 2 7 open 18 open 
+subblock: [1426] 8 9 open open 19 open 
+
+.clb [256]
+pinlist: ng92 ng34 ng35 ng53 ng60 [157] [1473] pg8 ng85 ng64 ng90 ng72 ng68 ng67 ng71 open [256] [171] [495] [1427] open 
+subblock: [256] 0 1 2 open 16 open 
+subblock: [171] 3 4 5 6 17 open 
+subblock: [495] 7 8 9 10 18 open 
+subblock: [1427] 11 12 13 14 19 open 
+
+.clb pg0
+pinlist: pg7 ng91 ng40 ng41 [164] ng92 ng54 ng34 ng172 pg11 pg14 ng616 open open open open pg0 ng522 [172] [396] open 
+subblock: pg0 0 0 0 0 16 open 
+subblock: ng522 1 2 3 4 17 open 
+subblock: [172] 5 6 7 8 18 open 
+subblock: [396] 9 10 1 11 19 open 
+
+.clb ng84
+pinlist: [388] [389] pg14 ng172 ng63 ng90 ng616 ng91 [346] [347] [1459] open open open open open ng84 ng34 [213] [330] pclk 
+subblock: ng84 0 1 open open 16 20 
+subblock: ng34 2 ble_1 3 open 17 20 
+subblock: [213] 2 4 5 6 18 open 
+subblock: [330] 7 8 9 10 19 open 
+
+.clb ng94
+pinlist: pg11 pg14 ng89 pg15 [201] [455] open open open open open open open open open open ng94 ng22 open open pclk 
+subblock: ng94 0 1 ble_0 2 16 20 
+subblock: ng22 3 4 5 open 17 20 
+
+.clb ng47
+pinlist: pg12 [205] [334] ng56 ng50 [172] [1460] ng49 pg7 pg14 ng91 ng616 open open open open ng47 [189] [305] [326] pclk 
+subblock: ng47 0 1 2 open 16 20 
+subblock: [189] 3 4 5 6 17 open 
+subblock: [305] 7 3 5 6 18 open 
+subblock: [326] 8 9 10 11 19 open 
+
+.clb pg12
+pinlist: pg7 ng48 [205] [305] [161] [162] ng27 ng24 ng700 [1415] open open open open open open pg12 ng49 ng79 [173] pclk 
+subblock: pg12 0 0 0 0 16 open 
+subblock: ng49 1 2 3 open 17 20 
+subblock: ng79 4 5 open open 18 20 
+subblock: [173] 6 7 8 9 19 open 
+
+.clb ng89
+pinlist: pg11 pg14 ng88 ng27 ng24 ng700 [1415] ng91 ng79 ng616 ng47 ng56 [172] [1460] open open ng89 [257] [161] [334] pclk 
+subblock: ng89 0 1 ble_0 2 16 20 
+subblock: [257] 3 4 5 6 17 open 
+subblock: [161] 1 7 8 9 18 open 
+subblock: [334] 10 11 12 13 19 open 
+
+.clb [297]
+pinlist: ng56 ng48 [172] ng22 ng49 pg15 ng47 ng50 ng91 pg14 open open open open open open [297] [455] open [1460] open 
+subblock: [297] 0 1 2 ble_3 16 open 
+subblock: [455] 3 4 1 ble_2 17 open 
+subblock: [1419] 5 6 7 open 18 open 
+subblock: [1460] 8 9 open open 19 open 
+
+.clb ng27
+pinlist: pg14 [257] ng328 [201] ng259 ng49 [205] [189] pg11 ng87 open open open open open open ng27 ng42 ng50 ng88 pclk 
+subblock: ng27 0 1 open open 16 20 
+subblock: ng42 2 ble_1 3 4 17 20 
+subblock: ng50 5 6 7 open 18 20 
+subblock: ng88 8 0 9 ble_3 19 20 
+
+.clb ng23
+pinlist: pg15 ng22 [455] pg14 ng80 ng91 ng616 open open open open open open open open open ng23 ng328 [325] [452] open 
+subblock: ng23 ble_1 open open open 16 open 
+subblock: ng328 0 ble_0 1 2 17 open 
+subblock: [325] 3 4 5 6 18 open 
+subblock: [452] 0 ble_0 open open 19 open 
+
+.clb ng80
+pinlist: [325] [326] ng47 [297] ng49 ng50 pg14 ng91 ng56 [172] open open open open open open ng80 ng48 [201] [205] pclk 
+subblock: ng80 0 1 open open 16 20 
+subblock: ng48 2 ble_3 3 open 17 20 
+subblock: [201] 2 4 ble_1 5 18 open 
+subblock: [205] 6 7 8 9 19 open 
+
+.clb ng78
+pinlist: ng589 [255] ng82 ng74 ng77 ng79 ng88 ng41 ng34 ng87 ng172 [1478] open open open open ng78 [1437] [1475] [1479] pclk 
+subblock: ng78 0 1 open open 16 20 
+subblock: [1437] 2 3 4 5 17 open 
+subblock: [1475] 6 7 open open 18 open 
+subblock: [1479] 8 9 10 11 19 open 
+
+.clb ng524
+pinlist: ng78 [175] [1437] [1438] ng22 [238] [452] [1455] pg10 ng91 ng86 pg1 ng75 ng90 open open ng524 ng262 [322] [1412] open 
+subblock: ng524 0 1 2 3 16 open 
+subblock: ng262 4 5 6 7 17 open 
+subblock: [322] 8 9 10 open 18 open 
+subblock: [1412] 11 12 13 open 19 open 
+
+.clb pg702
+pinlist: ng653 [1480] ng90 [495] [496] [1412] [1408] ng82 ng80 ng81 ng79 open open open open open pg702 ng102 ng105 [175] open 
+subblock: pg702 0 1 open open 16 open 
+subblock: ng102 2 3 4 5 17 open 
+subblock: ng105 2 3 4 6 18 open 
+subblock: [175] 7 8 9 10 19 open 
+
+.clb pg4
+pinlist: pg7 [213] [1430] ng75 ng78 [163] [1471] ng80 ng81 ng76 open open open open open open pg4 ng72 [255] [1438] pclk 
+subblock: pg4 0 0 0 0 16 open 
+subblock: ng72 ble_0 1 2 open 17 20 
+subblock: [255] 3 4 5 6 18 open 
+subblock: [1438] 3 7 8 9 19 open 
+
+.clb ng73
+pinlist: pg5 [213] [1445] ng53 ng61 [157] [1476] pg15 ng23 [455] pg14 ng90 ng616 open open open ng73 ng653 [238] [405] pclk 
+subblock: ng73 0 1 2 open 16 20 
+subblock: ng653 3 4 5 6 17 open 
+subblock: [238] 7 8 9 open 18 open 
+subblock: [405] 10 ble_0 11 12 19 open 
+
+.clb out:pg702
+pinlist: pg7 pg4 ng90 ng78 ng89 ng62 ng28 ng94 [173] open open open open open open open open [1408] [1476] [1478] open 
+subblock: out:pg702 0 0 0 0 open open 
+subblock: [1408] 1 2 3 open 17 open 
+subblock: [1476] 4 5 open open 18 open 
+subblock: [1478] 6 7 2 8 19 open 
+
+.clb ng91
+pinlist: pg14 pg13 [322] [323] pg1 [214] [436] [201] ng42 ng40 [164] [1475] [1479] open open open ng91 [1430] [1455] [1480] pclk 
+subblock: ng91 0 1 2 3 16 20 
+subblock: [1430] 4 5 6 open 17 open 
+subblock: [1455] 7 8 open open 18 open 
+subblock: [1480] 9 10 11 12 19 open 
+
+.clb pg1
+pinlist: pg7 pg10 ng90 ng86 pg14 ng72 ng616 pg2 [214] [405] open open open open open open pg1 [323] [436] [1445] open 
+subblock: pg1 0 0 0 0 16 open 
+subblock: [323] 1 2 3 open 17 open 
+subblock: [436] 4 5 2 6 18 open 
+subblock: [1445] 7 8 9 open 19 open 
+

@@ -1,0 +1,27 @@
+.model example
+.inputs i0 i1 i2 i3 i4 i5 i6 i7 i10 i11 pclk
+.outputs o9 gf
+.latch b bf re pclk 2
+.latch d df re pclk 2
+.latch f ff re pclk 2
+.latch g gf re pclk 2
+.names i0 i1 a
+01 1
+.names i2 a b
+10 1
+.names i3 h c
+11 1
+00 1
+.names i4 i5 d
+11 1
+.names i10 i11 o9
+01 1
+.names i6 i7 f
+1- 1
+-1 1
+.names c ff g
+01 1
+.names df bf h
+10 1
+01 1
+.end

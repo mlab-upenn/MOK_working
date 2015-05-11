@@ -1,0 +1,82 @@
+.global pclk
+
+.input i0
+pinlist: i0 
+
+.input i1
+pinlist: i1 
+
+.input i2
+pinlist: i2 
+
+.input i3
+pinlist: i3 
+
+.input i4
+pinlist: i4 
+
+.input i5
+pinlist: i5 
+
+.input i6
+pinlist: i6 
+
+.input i7
+pinlist: i7 
+
+.input i10
+pinlist: i10 
+
+.input i11
+pinlist: i11 
+
+.input pclk
+pinlist: pclk 
+
+.output out:o9
+pinlist: o9 
+
+.output out:gf
+pinlist: gf 
+
+.clb i0
+pinlist: i11 open open open open open open open open open open open open open open open i0 i1 open o9 open 
+subblock: i0 ble_0 ble_0 ble_0 ble_0 16 open 
+subblock: i1 ble_0 ble_0 ble_0 ble_0 17 open 
+subblock: i10 ble_0 ble_0 ble_0 ble_0 18 open 
+subblock: o9 ble_2 0 open open 19 open 
+
+.clb i2
+pinlist: i0 c ff open open open open open open open open open open open open open i2 gf open open pclk 
+subblock: i2 0 0 0 0 16 open 
+subblock: gf 1 2 open open 17 20 
+
+.clb i11
+pinlist: i0 i3 h open open open open open open open open open open open open open i11 open c open open 
+subblock: i11 0 0 0 0 16 open 
+subblock: out:gf 0 0 0 0 open open 
+subblock: c 1 2 open open 18 open 
+
+.clb i3
+pinlist: i0 open open open open open open open open open open open open open open open i3 open open open open 
+subblock: i3 0 0 0 0 16 open 
+subblock: out:o9 0 0 0 0 open open 
+
+.clb a
+pinlist: i0 i1 i2 open open open open open open open open open open open open open open bf open open pclk 
+subblock: a 0 1 open open 16 open 
+subblock: bf 2 ble_0 open open 17 20 
+
+.clb i7
+pinlist: i0 i6 df bf open open open open open open open open open open open open open ff h open pclk 
+subblock: i7 0 0 0 0 16 open 
+subblock: ff 1 ble_0 open open 17 20 
+subblock: h 2 3 open open 18 open 
+
+.clb i4
+pinlist: i0 open open open open open open open open open open open open open open open open open i6 df pclk 
+subblock: i4 0 0 0 0 16 open 
+subblock: i5 0 0 0 0 17 open 
+subblock: i6 0 0 0 0 18 open 
+subblock: df ble_0 ble_1 open open 19 20 
+

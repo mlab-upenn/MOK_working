@@ -1,0 +1,56 @@
+PE 0 (height=0, addr=0) in0:  i11
+PE 0 (height=0, addr=0) out0:  i0 i1 o9
+PE 1 (height=0, addr=1) in0:  ff c
+PE 1 (height=0, addr=1) out0:  i2 gf
+PE 2 (height=0, addr=2) in0:  i3 gf h
+PE 2 (height=0, addr=2) out0:  i11 c
+PE 3 (height=0, addr=3) in0: 
+PE 3 (height=0, addr=3) out0: 
+PE 4 (height=0, addr=4) in0:  o9
+PE 4 (height=0, addr=4) out0:  i3
+PE 5 (height=0, addr=5) in0:  i0 i1 i2
+PE 5 (height=0, addr=5) out0:  bf
+PE 6 (height=0, addr=6) in0:  i6 bf df
+PE 6 (height=0, addr=6) out0:  ff h
+PE 7 (height=0, addr=7) in0: 
+PE 7 (height=0, addr=7) out0:  i6 df
+Switch 8 (height=3, addr=0) left in:  i0 i1 i2 o9
+Switch 8 (height=3, addr=0) left out:  i3 ff h
+Switch 8 (height=3, addr=0) right in:  i3 ff h
+Switch 8 (height=3, addr=0) right out:  i0 i1 i2 o9
+Switch 9 (height=2, addr=0) in0:  i3 ff h
+Switch 9 (height=2, addr=0) out0:  i0 i1 i2 o9
+Switch 9 (height=2, addr=0) left in:  i0 i1 i2 o9 gf
+Switch 9 (height=2, addr=0) left out:  i11 ff c
+Switch 9 (height=2, addr=0) right in:  i11 c
+Switch 9 (height=2, addr=0) right out:  i3 gf h
+Switch 10 (height=1, addr=0) in0:  i11 ff c
+Switch 10 (height=1, addr=0) out0:  i0 i1 i2 o9 gf
+Switch 10 (height=1, addr=0) left in:  i0 i1 o9
+Switch 10 (height=1, addr=0) left out:  i11
+Switch 10 (height=1, addr=0) right in:  i2 gf
+Switch 10 (height=1, addr=0) right out:  ff c
+Switch 11 (height=1, addr=2) in0:  i3 gf h
+Switch 11 (height=1, addr=2) out0:  i11 c
+Switch 11 (height=1, addr=2) left in:  i11 c
+Switch 11 (height=1, addr=2) left out:  i3 gf h
+Switch 11 (height=1, addr=2) right in: 
+Switch 11 (height=1, addr=2) right out: 
+Switch 12 (height=2, addr=4) in0:  i0 i1 i2 o9
+Switch 12 (height=2, addr=4) out0:  i3 ff h
+Switch 12 (height=2, addr=4) left in:  i3 bf
+Switch 12 (height=2, addr=4) left out:  i0 i1 i2 o9
+Switch 12 (height=2, addr=4) right in:  ff h
+Switch 12 (height=2, addr=4) right out:  bf
+Switch 13 (height=1, addr=4) in0:  i0 i1 i2 o9
+Switch 13 (height=1, addr=4) out0:  i3 bf
+Switch 13 (height=1, addr=4) left in:  i3
+Switch 13 (height=1, addr=4) left out:  o9
+Switch 13 (height=1, addr=4) right in:  bf
+Switch 13 (height=1, addr=4) right out:  i0 i1 i2
+Switch 14 (height=1, addr=6) in0:  bf
+Switch 14 (height=1, addr=6) out0:  ff h
+Switch 14 (height=1, addr=6) left in:  ff h
+Switch 14 (height=1, addr=6) left out:  i6 bf df
+Switch 14 (height=1, addr=6) right in:  i6 df
+Switch 14 (height=1, addr=6) right out: 

@@ -1,0 +1,85 @@
+.global pclk
+
+.input i0
+pinlist: i0 
+
+.input i1
+pinlist: i1 
+
+.input i2
+pinlist: i2 
+
+.input i3
+pinlist: i3 
+
+.input i4
+pinlist: i4 
+
+.input i5
+pinlist: i5 
+
+.input i6
+pinlist: i6 
+
+.input i7
+pinlist: i7 
+
+.input i10
+pinlist: i10 
+
+.input i11
+pinlist: i11 
+
+.input pclk
+pinlist: pclk 
+
+.output out:o9
+pinlist: o9 
+
+.output out:gf
+pinlist: gf 
+
+.clb i0
+pinlist: i3 h open open open open open open open open open open open open open open i0 i10 i11 c open 
+subblock: i0 ble_0 ble_0 ble_0 ble_0 16 open 
+subblock: i10 ble_0 ble_0 ble_0 ble_0 17 open 
+subblock: i11 ble_0 ble_0 ble_0 ble_0 18 open 
+subblock: c 0 1 open open 19 open 
+
+.clb a
+pinlist: i0 i1 open open open open open open open open open open open open open open a open open open open 
+subblock: a 0 1 open open 16 open 
+
+.clb h
+pinlist: df bf open open open open open open open open open open open open open open h open open open open 
+subblock: h 0 1 open open 16 open 
+
+.clb i7
+pinlist: i0 open open open open open open open open open open open open open open open i7 open open open open 
+subblock: i7 0 0 0 0 16 open 
+
+.clb i2
+pinlist: i0 a open open open open open open open open open open open open open open open i5 bf open pclk 
+subblock: i2 0 0 0 0 16 open 
+subblock: i5 0 0 0 0 17 open 
+subblock: bf ble_0 1 open open 18 20 
+
+.clb i6
+pinlist: i0 i7 c open open open open open open open open open open open open open open open gf open pclk 
+subblock: i6 0 0 0 0 16 open 
+subblock: ff ble_0 1 open open 17 20 
+subblock: gf 2 ble_1 open open 18 20 
+
+.clb i1
+pinlist: i0 open open open open open open open open open open open open open open open i1 i3 open open open 
+subblock: i1 0 0 0 0 16 open 
+subblock: i3 0 0 0 0 17 open 
+subblock: out:gf 0 0 0 0 open open 
+
+.clb i4
+pinlist: i0 i5 i10 i11 open open open open open open open open open open open open open open df o9 pclk 
+subblock: i4 0 0 0 0 16 open 
+subblock: out:o9 0 0 0 0 19 open 
+subblock: df ble_0 1 open open 18 20 
+subblock: o9 2 3 open open 19 open 
+

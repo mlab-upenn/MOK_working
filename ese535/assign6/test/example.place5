@@ -1,0 +1,25 @@
+Netlist file: example.net   Architecture file: dummy.arch
+Tree size: 8 logic blocks
+
+#block name	loc	subblk	timestep	block number
+#----------	--	------	-------	------------
+i0		0	0	#timestep=0 	blocknum=0
+i1		0	1	#timestep=0 	blocknum=1
+i10		0	2	#timestep=0 	blocknum=8
+o9		0	3	#timestep=1 	blocknum=17
+i2		1	0	#timestep=0 	blocknum=2
+gf		1	1	#timestep=3 	blocknum=19
+i11		2	0	#timestep=0 	blocknum=9
+out:gf		2	1	#timestep=1 	blocknum=12
+c		2	2	#timestep=2 	blocknum=15
+i3		4	0	#timestep=0 	blocknum=3
+out:o9		4	1	#timestep=2 	blocknum=11
+a		5	0	#timestep=1 	blocknum=13
+bf		5	1	#timestep=2 	blocknum=14
+i7		6	0	#timestep=0 	blocknum=7
+ff		6	1	#timestep=1 	blocknum=18
+h		6	2	#timestep=1 	blocknum=20
+i4		7	0	#timestep=0 	blocknum=4
+i5		7	1	#timestep=0 	blocknum=5
+i6		7	2	#timestep=0 	blocknum=6
+df		7	3	#timestep=1 	blocknum=16
