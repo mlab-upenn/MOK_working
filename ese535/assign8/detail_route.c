@@ -27,7 +27,7 @@
 void detail_route(boolean *is_clock, boolean global_clock, int maxwaves, boolean verbose)
 {
     int i;
-    process_block_list();
+    //process_block_list();
 
     // Sort blocks
     //sort_blocks(is_clock,global_clock,FALSE);

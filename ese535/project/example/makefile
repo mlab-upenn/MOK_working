@@ -1,6 +1,6 @@
 # makefile to run some sched_main tests
 
-BLIF = example.blif 
+BLIF = e64.blif 
 
 test1: $(BLIF:.blif=.cost1) 
 test2: $(BLIF:.blif=.cost2) 

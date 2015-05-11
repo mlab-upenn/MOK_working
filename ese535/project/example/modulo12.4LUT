@@ -1,0 +1,5 @@
+.model modulo12.kiss2
+.inputs v0
+.outputs v5.4
+.names v5.4
+.end

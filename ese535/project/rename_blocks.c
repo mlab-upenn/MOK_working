@@ -25,9 +25,6 @@ void process_block_list(void)
     optim=fopen("output.pb", "wb");
     header=fopen("header.pb", "wb");
 
-
-    
-    int blocks_not_clocks=0;
     int no_clocks[num_blocks];
     int whichNet;
     int size=(num_blocks+4-1)/4;
@@ -35,19 +32,9 @@ void process_block_list(void)
     int variable=0;
     int constraint=0;
     int product=0;
-    int sizeproduct=5;
+    int sizeproduct=0;
 
-    // Remove clocks, we won't be placing them
-    for(i=0; i<num_blocks; i++)
-    {
-        if(block[i].loc!=GLOBAL_CLOCK_LOC)
-        {
-            blocks_not_clocks++;
-            no_clocks[blocks_not_clocks]=i;
-        }
-    }
-
-    ListPtr *x_vals=malloc(sizeof(ListPtr)*blocks_not_clocks);
+    ListPtr *x_vals=malloc(sizeof(ListPtr)*num_blocks);
 
     for(i=0; i<num_blocks; i++)
     {
@@ -65,11 +52,11 @@ void process_block_list(void)
     }
 
     
-    fprintf(optim, "min:");
+    //fprintf(optim, "min:");
 
     // Find the sources and associate nets so we can locate the sinks
     // We will use this for creating the objective function.
-    /*for(i=0; i<num_blocks; i++)
+    for(i=0; i<num_blocks; i++)
     {
         if(block[i].type!=OUTPAD && block[i].loc!=GLOBAL_CLOCK_LOC)
         {
@@ -80,45 +67,57 @@ void process_block_list(void)
             if (block[src].type==OUTPAD)
                 start=0;
 
-            ListPtr nextSink=NULL;
-            ListPtr currentSink=x_vals[net[whichNet].pins[j]];
-            ListPtr nextSrc=NULL;
-            ListPtr currentSrc=x_vals[src];
-
-            while(currentSink!=NULL)
+            for(j=start; j<net[whichNet].num_pins; j++)
             {
-                    if(current->cellNumber>0)
-                    {
-                        product++;
-                        fprintf(optim, "+1 ~x%d", x_vals[src]->cellNumber);
-                        fprintf(optim, " x%d ", current->cellNumber);
-                    }
-                    
-                    current=current->nextPtr;
+                ListPtr nextSrc=NULL;
+                ListPtr currentSrc=x_vals[src];
+                ListPtr nextSink=NULL;
+                ListPtr currentSink=x_vals[net[whichNet].pins[j]];
+                printf("got here\n");
+
+                while(currentSrc!=NULL && currentSink!=NULL)
+                {
+
+                        if(currentSrc->cellNumber>0 && currentSink->cellNumber>0)
+                        {
+                            printf("Current source= x%d", currentSrc->cellNumber);
+                            product++;
+                            fprintf(optim, "-1 ~x%d", currentSrc->cellNumber);
+                            fprintf(optim, " x%d ", currentSink->cellNumber);
+                            
+                        }
+
+                    currentSink=currentSink->nextPtr;
+                    currentSrc=currentSrc->nextPtr;
+                }
 
             }
             
         }
-    }*/
+    }
+
   
-    fprintf(optim, " ;\n");
+    fprintf(optim, " >= -100000;\n");
+    constraint++;
 
     // Create the all nodes represented constraint (no replicants)
-    for(i=0; i<blocks_not_clocks+1; i++)
+    for(i=0; i<num_blocks; i++)
     {
         index=i*j;
-        for(j=0; j<num_leaves; j++)
-        { 
-            
-            fprintf(vars,"x%d\n", (index+j));
-            fprintf(deref,"%s   x%d   leaf: %d\n", block[no_clocks[i]].name, index+j, j);
-            fprintf(optim,"+1 x%d ", (index+j+1));
-            
+        if(block[i].type!=OUTPAD && block[i].loc!=GLOBAL_CLOCK_LOC)
+        {
+            for(j=0; j<num_leaves; j++)
+            { 
+
+                fprintf(vars,"x%d\n", (index+j));
+                fprintf(deref,"%s   x%d   leaf: %d\n", block[i].name, index+j, j);
+                fprintf(optim,"+1 x%d ", (index+j+1));
+
+            }
+
+            fprintf(optim," = 1 ;\n");
+            constraint++;
         }
-        
-        fprintf(optim," = 1 ;\n");
-        constraint++;
-        //fprintf(deref,"\n");
     }
 
     index=0;
@@ -126,53 +125,43 @@ void process_block_list(void)
     // Create the balanced partitions constraint
     for(j=0; j<num_leaves; j++)
     {
-        //index=i*j;
-        for(i=0; i<blocks_not_clocks+1; i++)
+        for(i=0; i<num_blocks; i++)
         { 
-            
-            fprintf(vars,"x%d\n", (j+i*8));
-            fprintf(deref,"%s   x%d   leaf: %d\n", block[no_clocks[i]].name, index+j, j);
-            fprintf(optim,"-1 x%d ", (j+i*8));
+            if(block[i].type!=OUTPAD && block[i].loc!=GLOBAL_CLOCK_LOC)
+            {
+                fprintf(vars,"x%d\n", (j+i*8));
+                fprintf(deref,"%s   x%d   leaf: %d\n", block[i].name, index+j, j);
+                fprintf(optim,"-1 x%d ", (j+i*num_leaves)+1);
+            }
         }
         fprintf(optim," >= -4 ;\n");
         constraint++;
     }
 
-    fprintf(optim,"x1 = 1 ;\n");
+    fprintf(optim, "+1 x1 = 0 ;\n");
     constraint++;
 
-sizeproduct=2*product;
-fprintf(header,"* #variable= %d #constraint= %d #product= %d sizeproduct= %d\n", variable, constraint, product, sizeproduct);
-fprintf(header, "*\n* comments\n*\n*\n");
-fclose(header);
-fclose(optim);
 
-FILE *mytest=fopen("header.pb", "a");
-FILE *test=fopen("output.pb", "r");
+    sizeproduct=2*product;
+    fprintf(header,"* #variable= %d #constraint= %d #product= %d sizeproduct= %d\n", variable, constraint, product, sizeproduct);
+    fprintf(header, "*\n* comments\n*\n*\n");
+    fclose(header);
+    fclose(optim);
 
-if (mytest!=NULL)
-{
-    printf("opened header\n");
-}
+    FILE *mytest=fopen("header.pb", "a");
+    FILE *test=fopen("output.pb", "r");
 
-if (test!=NULL)
-{
-    printf("opened optim\n");
-}
+    char buffer[100];
+    printf("about to append\n");
+    rewind(optim);
+    printf("%d\n", feof(optim));
 
+    while(feof(test)==0)
+    {
+        int num;
+        num=fread(buffer, sizeof(char), 100,  test);
+        printf("read in a block\n");
+        fwrite(buffer, sizeof(char), num,mytest);
+    }
 
-char buffer[100];
-printf("about to append\n");
-rewind(optim);
-printf("%d\n", feof(optim));
-
-while(feof(test)==0)
-{
-    fread(buffer, sizeof(char), 100,  test);
-    printf("read in a block\n");
-    fwrite(buffer, sizeof(char), 100 ,mytest);
-
-}
-//fclose(header);
-//fclose(optim);
 }

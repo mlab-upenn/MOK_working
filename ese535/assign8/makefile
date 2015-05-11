@@ -40,11 +40,11 @@ FLAGS = $(DEBUG_FLAGS)
 
 EXE = main
 
-OBJ = main.o util.o ff_pack.o read_blif.o  heapsort.o tree.o output_clustering.o asap.o check_precedence.o queue.o dummy_tree_place.o domain.o cost.o global_route.o check_route.o part_place.o model.o energy.o grow.o detail_route.o tree_energy.o list.o alap.o rename_blocks.o
+OBJ = main.o util.o ff_pack.o read_blif.o  heapsort.o tree.o output_clustering.o asap.o check_precedence.o queue.o dummy_tree_place.o domain.o cost.o global_route.o check_route.o part_place.o model.o energy.o grow.o detail_route.o tree_energy.o list.o alap.o 
 
-SRC = main.c util.c ff_pack.c read_blif.c heapsort.c tree.c output_clustering.c asap.c check_precedence.c queue.c dummy_tree_place.c domain.c cost.c global_route.c check_route.c part_place.c model.c energy.c grow.c detail_route.c tree_energy.c list.c alap.c rename_blocks.c
+SRC = main.c util.c ff_pack.c read_blif.c heapsort.c tree.c output_clustering.c asap.c check_precedence.c queue.c dummy_tree_place.c domain.c cost.c global_route.c check_route.c part_place.c model.c energy.c grow.c detail_route.c tree_energy.c list.c alap.c 
 
-H = util.h main.h globals.h read_blif.h ff_pack.h heapsort.h tree.h output_clustering.h asap.h check_precedence.h queue.h dummy_tree_place.h domain.h cost.h check_route.h global_route.h part_place.h model.h energy.h grow.h detail_route.h tree_energy.h list.h alap.h rename_blocks.h
+H = util.h main.h globals.h read_blif.h ff_pack.h heapsort.h tree.h output_clustering.h asap.h check_precedence.h queue.h dummy_tree_place.h domain.h cost.h check_route.h global_route.h part_place.h model.h energy.h grow.h detail_route.h tree_energy.h list.h alap.h 
 
 LIB = -lm
 

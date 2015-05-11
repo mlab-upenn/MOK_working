@@ -1,0 +1,6 @@
+.model donfile.kiss2
+.inputs v0 v1
+.outputs v7.5
+.names v7.5
+ 1
+.end

@@ -1,6 +1,6 @@
 # makefile to run some sched_main tests
 
-BLIF = stereovision1.blif 
+BLIF = stereovision1.blif
 
 test1: $(BLIF:.blif=.cost1) 
 test2: $(BLIF:.blif=.cost2) 

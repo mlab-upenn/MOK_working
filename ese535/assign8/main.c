@@ -22,7 +22,7 @@
 
 // This is used to allocate domains for your routing (scheduling) for assignment 7, 8.
 //  Increase if you need it to be larger.
-#define SCHEDULE_FACTOR 100
+#define SCHEDULE_FACTOR 50
 
 #define BIG_INT 32000
 
