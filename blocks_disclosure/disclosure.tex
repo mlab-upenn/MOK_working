@@ -9,7 +9,7 @@
 \maketitle
 
 \section{OVERVIEW}
-This invention consists of a series of toy building blocks which can be configured into a series of states in order to capture and or display both physical and virtual events or content. 
+This invention consists of a series of toy building blocks which can be configured into a series of states in order to capture and or display both physical and virtual events or content. We describe the physical embodiment of the blocks, the communication protocol and embedded firmware, the media experiences which they enable, and relation to context-aware personalization. 
 
 \section{BACKGROUND}
 Conventional toy building block sets are well known and are generally considered to be an important part of a child's learning and development process, allowing children to use imagination and/or creativity to build and/or create a large number of configurations and/or structures. Since and each built structure exists only as a physical entity, these constructions must be dismantled when the blocks are needed to building new structures, that is, they do not interact with the growing variety of virtual platforms with which children engage during play.
@@ -26,19 +26,22 @@ In one embodiment of the invention we include a base grid, a set of blocks, a de
 \subsection{Devices}
 \subsubsection{Block Subsystem}
 The embodiment of the invention consists of physical blocks that contain circuit boards embedded within an outer shell. The portion of the block with which the child interacts has the look and feel of a conventional interlocking brick, and can be used to build standalone physical structures. The block’s geometry consists of a square prism shape with a shallow cylindrical shape at its top surface. The entire block is approximately 31 mm x 31mm x 25 mm high. Atop each corner of the square prism portion is a small wedge-shaped raised surface that functions to lock stacked blocks together as well as keep blocks registered to avoid twisting in x-y space when stacked vertically. Fig. \ref{fig:block} B, callout 1 details this feature.
-\begin{figure}
-	\includegraphics[width=\textwidth]{Figures/single_block}
-	\caption{(A) Section view of block connection mechanism (B) Exploded view of block assembly (C) Bottom view of block PCB}
-	\label{fig:block}
-\end{figure}
 
 Each individual block consists of a plastic shell (Fig. \ref{fig:block} B detail 1) with a square or rectangular block base and one or more cylindrical tops with a series of through holes on its top.  Each through hole contains a protruding electrically conductive contact as shown in Fig. \ref{fig:block} B detail 3. A square, printed circuit board (Fig. \ref{fig:block} B detail 2) is connected via springs (Fig. \ref{fig:block} B detail 4) to the contacts and mounted slightly above the base of the square portion of the block geometry. When a block is placed atop one of the raised cylindrical surfaces or nodes on the grid base, the protruding contacts on the node make a connection with the bottom surface of the lower, square circuit board in the block. This connection provides power to the block’s circuit board as well as enabling communication to other blocks and the base play surface. This communication enables the registration of an individual block’s presence and x-y-z location. 
 
 Subsequent blocks (Fig. \ref{fig:block} A) placed atop a block that is already connected to the grid will receive power through the lower block (which is powered because of its grid connection) and similarly be able to broadcast presence and x-y-z location. The springs mounted between the top and bottom circuit boards provide a robust connection between blocks or between a block and a grid base node as seen in Fig. \ref{fig:block} A Detail 2.  The individually sprung pins  enable the blocks to withstand poor flatness tolerances and height discrepancies inherent to the mating surfaces due to manufacturing processes. Each PCB (Fig. \ref{fig:block} C Detail 3) contains at least two electrically isolated planes where one serves as ground (Fig. \ref{fig:block} C Detail 1) and one provides communication and power (Fig. \ref{fig:block} C Detail 2). In other configurations a third or fourth plane may be necessary in order to provide electrically isolated connections for power, communication, and addressing. 
 
+We note that there are many possible block configurations and physical embodiments. For example we describe a subset of simple verifications on shape and nodal configuration below:
+
+\emph{Block configurations}:
+1 x 1, 2 x 1, 3 x 1, 2 x 2, irregular patterns representing more complex objects (ie vehicle, or human avatar)
+
+\emph{Block shapes}:
+Square prism, rectangular prism, cylinder, irregular shapes
+
 
 \subsubsection{Base Subsystem}
-The invention also includes a base grid of rows and columns of nodes of raised cylindrical surfaces onto which individual blocks can be mounted. Each cylindrical surface has 2 to 5 through holes. Each base node has 2 to 5 copper contacts that protrude past the through holes, slightly proud of  the upper surface of the node. The grid base also contains a microcontroller, battery and wireless communication module to broadcast electronic signals to a virtual platform. When any of the individual blocks are placed onto a raised surface on the grid, their presence and row/column or x-y position on the grid is recognized and immediately broadcast to the virtual platform. When stacked atop one another, each block’s position in terms of height (z location) is also broadcast along with its row/column or x-y location.
+The invention also includes a base grid of rows and columns of nodes of raised cylindrical surfaces onto which individual blocks can be mounted. Each cylindrical surface has 2 to 5 through holes. Each base node has 2 to 5 copper contacts that protrude past the through holes, slightly proud of  the upper surface of the node. The grid base also contains a microcontroller, battery and wireless communication module to broadcast electronic signals to a virtual platform. When any of the individual blocks are placed onto a raised surface on the grid, their presence and row/column or x-y position on the grid is recognized and immediately broadcast to the virtual platform. When stacked atop one another, each block’s position in terms of height (z location) and orientation is also broadcast along with its row/column or x-y location.
 
 LEDs have been embedded in the base to provide a variety of different feedback signals to the user.  The primary mode in which the LEDs will operate is to determine the correct orientation of the base.  Additional modes include indicating success or failure within the game, as well as visualizing battery life depletion.
 
@@ -46,33 +49,30 @@ Determining the correct orientation of the base is a key part of the unboxing an
 In addition to aiding in proper setup, the LEDs are used to provide feedback to the user throughout the game.  For example, if the user correctly places the blocks to complete the challenge, the green LEDs flash or illuminate to indicate successful completion of the task.  Conversely, if the user fails to complete the challenge within the constraints set forth, the red LEDs illuminate, indicating a failure to complete the task.  Such phenomena would also occur on the screen, to continue to perpetuate the unity between the physical and virtual games.
 The LEDs are also used to inform the user of issues related to the base block itself.  As the batteries begin to get low and need to be charged, the LEDs flash in a specified pattern to indicate to the user that the base should be charged.  Such illumination is also used to indicate when the batteries are too depleted to successfully connect the base to the game, thus alleviating frustration related to troubleshooting why the base is not syncing with the game in a low battery situation.
 
-In another aspect, the invention also consists of a virtual platform that will display a real time virtual image of the block configurations, maintaining persistent communication with the block grid base and updating the virtual image any time a new block configuration is detected.
-\begin{figure}[H]
-	\includegraphics[width=\textwidth]{Figures/base}
-	\caption{Base exploded view}
-\end{figure}
+Again we note that the layout and physical characteristics of the grid are highly variable. In other embodiments the base may have:
+Grid variations: Multi-Resolution, coloring, special nodes with unique ``powers", extrusions representing environment, etc... Furthermore, the grid may be tethered or wireless (wifi, Bluetooth, RF, visible light, IR, sound, etc).
+
 
 \subsection{Software}
-\input{software}
-Block configurations:
-1 x 1
-2 x 1
-3 x 1
-2 x 2
-
-Block shapes:
-Square Prism
-Rectangular Prism
-Round Cylinder
-Irregular extruded shapes
-Other…
-
-Grid variations:
-Resolution
-Tethered
-Wireless (wifi, Bluetooth, RF)
-
 \subsubsection{Interblock Communication Protocol}
+\input{software}
+
+\subsubsection{Interpreting Block State}
+The content-coupled blocks enable a variety of unique media experiences which blur the line between gaming and traditional passive consumption models (such as an episode of a TV show). We highlight four primary constraint types which can be used to define outcomes of interaction with the blocks which may occur as an integral part of the experience. 
+\newline
+\newline
+\emph{Geometric constraint}: The user must build the proper form in order to progress. The form does not need to be exact, but it must satisfy a set of state-based constraints. State-based constraints may include the requirement of the presence of a set of blocks in a certain set of orientations and positions. A generic scenario describing the constraint is depicted in Fig. \ref{fig:geom}.
+\newline
+\newline 
+\emph{Temporal constraint} The user must satisfy another constraint (of any form) within a certain amount of time. Time maybe implicit or explicit (ie can be the logical progression of events rather than 10 ms). A generic scenario describing this constraint is depicted in Fig. \ref{fig:temporal}
+\newline
+\newline
+\emph{Resource constraint} The user must satisfy another constraint using a certain number of resources. This could be a maximum, minimum, or based on a solution to a secondary constraint. A generic scenario describing this constraint is depicted in Fig. \ref{fig:logical}.
+\newline
+\newline
+\emph{Logical constraint} The user must satisfy a higher level constraint such that another agent in the experience has a certain set of reachable states. A generic scenario describing this constraint is depicted in Fig. \ref{fig:logical}.
+
+
 
 \subsubsection{Context Aware Personalization}
 Action Primitives for Context Aware Content Personalization
@@ -122,16 +122,51 @@ Social mode
 
 \item The first toy building block according to claim 1 that can confirm its presence on the toy grid base described in claim 1 through direct electrical contacts that touch one another when a block is stacked on the grid. 
 
-\item The first toy block system according to claim 3 such that the block contains two circuit boards that receive ground, power and signal through two contacts utilizing a Dallas 1-wire chip. Since they utilize power from the grid base, they do not contain a power source on their own, and their construction can be restricted to the simple embedding of circuit boards.
+\item The first toy block system according to claim 3 such that the block contains two circuit boards that receive ground, power and signal through two contacts utilizing a custom communication protocol which minimizes wires. Since each block utilizes power from the grid base, they do not contain a power source on their own, and their construction can be restricted to the simple embedding of circuit boards.
 
 \item The first toy building block according to claim 1 that can confirm its presence atop another block when the bottommost block is placed on the base grid.
+
+\item The first toy building block according to claim 1 which can confirm its orientation relative to any other block, such that the base board may observe the complete state of the system. 
 
 \item The first toy building block according to claim 1 that can broadcast wireless signals that map to a virtual representation of the block and grid, updating in real time to show the absence or presence of blocks on the grid.
 \end{itemize}
 
-Related Inventions
-Is this invention related to a prior invention disclosed to PCI? No
-If yes, please provide the docket number and/or title of the related invention(s).
-Was the invention developed using any research tools, biological substances, or other proprietary materials obtained from a third party? If so, was there a Material Transfer agreement?
+\pagebreak
+\begin{figure}
+	\includegraphics[width=\textwidth]{Figures/single_block}
+	\caption{(A) Section view of block connection mechanism (B) Exploded view of block assembly (C) Bottom view of block PCB}
+	\label{fig:block}
+\end{figure}
+
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{Figures/base}
+	\caption{Base exploded view}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/GameScrnsht1}
+	\caption{Abstraction representing a \emph{geometric constraint} constraint}
+	\label{fig:geom}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/GameScrnsht2}
+	\caption{Abstraction representing a \emph{geometric constraint} coupled with a \emph{temporal constraint}}
+	\label{fig:temporal}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/GameScrnsht3}
+	\caption{Abstraction representing a \emph{geometric constraint} constraint coupled with \emph{temporal}, \emph{resource}, and \emph{logical constraint}}
+	\label{fig:logical}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/GameScrnsht4}
+	\caption{Abstraction representing the free play mode}
+	\label{fig:free}
+\end{figure}
+
 
 \end{document}
