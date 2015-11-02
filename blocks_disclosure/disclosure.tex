@@ -29,16 +29,16 @@ The embodiment of the invention consists of physical blocks that contain circuit
 
 Each individual block consists of a plastic shell (Fig. \ref{fig:block} B detail 1) with a square or rectangular block base and one or more cylindrical tops with a series of through holes on its top.  Each through hole contains a protruding electrically conductive contact as shown in Fig. \ref{fig:block} B detail 3. A square, printed circuit board (Fig. \ref{fig:block} B detail 2) is connected via springs (Fig. \ref{fig:block} B detail 4) to the contacts and mounted slightly above the base of the square portion of the block geometry. When a block is placed atop one of the raised cylindrical surfaces or nodes on the grid base, the protruding contacts on the node make a connection with the bottom surface of the lower, square circuit board in the block. This connection provides power to the block’s circuit board as well as enabling communication to other blocks and the base play surface. This communication enables the registration of an individual block’s presence and x-y-z location. 
 
-Subsequent blocks (Fig. \ref{fig:block} A) placed atop a block that is already connected to the grid will receive power through the lower block (which is powered because of its grid connection) and similarly be able to broadcast presence and x-y-z location. The springs mounted between the top and bottom circuit boards provide a robust connection between blocks or between a block and a grid base node as seen in Fig. \ref{fig:block} A Detail 2.  The individually sprung pins  enable the blocks to withstand poor flatness tolerances and height discrepancies inherent to the mating surfaces due to manufacturing processes. Each PCB (Fig. \ref{fig:block} C Detail 3) contains at least two electrically isolated planes where one serves as ground (Fig. \ref{fig:block} C Detail 1) and one provides communication and power (Fig. \ref{fig:block} C Detail 2). In other configurations a third or fourth plane may be necessary in order to provide electrically isolated connections for power, communication, and addressing. 
+Subsequent blocks (Fig. \ref{fig:block} A) placed atop a block that is already connected to the grid will receive power through the lower block (which is powered because of its grid connection) and similarly be able to broadcast presence and x-y-z location. The springs mounted between the top and bottom circuit boards provide a robust connection between blocks or between a block and a grid base node as seen in Fig. \ref{fig:block} A Detail 2.  The individually sprung pins  enable the blocks to withstand poor flatness tolerances and height discrepancies inherent to the mating surfaces due to manufacturing processes. Each PCB (Fig. \ref{fig:block} C Detail 3) contains at least two electrically isolated planes where one serves as ground (Fig. \ref{fig:block} C Detail 1) and one provides communication and power (Fig. \ref{fig:block} C Detail 2). In other configurations a third or fourth plane may be necessary in order to provide electrically isolated connections for power, communication, and addressing.
 
 We note that there are many possible block configurations and physical embodiments. For example we describe a subset of simple verifications on shape and nodal configuration below:
 
-\emph{Block configurations}:
-1 x 1, 2 x 1, 3 x 1, 2 x 2, irregular patterns representing more complex objects (ie vehicle, or human avatar)
+\begin{itemize}
+	\item \emph{Block configurations}: 1 x 1, 2 x 1, 3 x 1, 2 x 2, irregular patterns representing more complex objects (i.e. vehicle, or human avatar)
+	\item \emph{Block shapes}: Square prism, rectangular prism, cylinder, irregular shapes
+\end{itemize}
 
-\emph{Block shapes}:
-Square prism, rectangular prism, cylinder, irregular shapes
-
+Each block is outfitted with a low-power microcontroller capable of reading and relaying sensor information to the base. The most prominent of these sensors are a pair of magnetic reed switches present in each block. Additionally, two magnets are placed internally toward the top of the block. These magnets are not strong enough to trigger the reed switches of the same block, but will trigger those of the block placed directly on top of it. Additionally, multi-node blocks (2 x 1, 3 x 1, 2 x 2, etc) contain switching circuitry that the block's microcontroller can trigger to disable the power line to any blocks placed on top of one of its nodes. 
 
 \subsubsection{Base Subsystem}
 The invention also includes a base grid of rows and columns of nodes of raised cylindrical surfaces onto which individual blocks can be mounted. Each cylindrical surface has 2 to 5 through holes. Each base node has 2 to 5 copper contacts that protrude past the through holes, slightly proud of  the upper surface of the node. The grid base also contains a microcontroller, battery and wireless communication module to broadcast electronic signals to a virtual platform. When any of the individual blocks are placed onto a raised surface on the grid, their presence and row/column or x-y position on the grid is recognized and immediately broadcast to the virtual platform. When stacked atop one another, each block’s position in terms of height (z location) and orientation is also broadcast along with its row/column or x-y location.
@@ -56,6 +56,14 @@ Grid variations: Multi-Resolution, coloring, special nodes with unique ``powers"
 \subsection{Software}
 \subsubsection{Interblock Communication Protocol}
 \input{software}
+\subsubsection{Structure Detection}
+In order to digitally represent the structure built on the baseboard, both the order in which blocks are stacked and the orientation of individual blocks must be determined.
+
+Orientation for each block is determined by querying the state of its read switches. The placement of reed switches and magnets are such that each block corresponds exclusively to one of the four possible orientations.
+
+The order in which blocks are stacked can be determined by the following algorithm. The master logs all IDs that are currently present on each communications line. A multi-node block is selected. The master then issues commands to disable the power line to one or more sub-nodes of the selected block. The master then notes which IDs are no longer present on the communications line. Any ID that is no longer present depends on the currently selected block and is connected to each of the disabled sub-nodes in some critical way. After re-enabling the transistors, the master then performs this operation for all remaining permutations of multi-node blocks and their sub-nodes. From this information, the baseboard can reconstruct which multi-node blocks are connected to sub-nodes of other multi-node blocks.
+
+It remains ambiguous the order in which single node blocks appear. However, since all single node blocks are equivalent, their order typically does not matter. If order does matter, then the user must be restricted to only placing one block at a time.
 
 \subsubsection{Interpreting Block State}
 The content-coupled blocks enable a variety of unique media experiences which blur the line between gaming and traditional passive consumption models (such as an episode of a TV show). We highlight four primary constraint types which can be used to define outcomes of interaction with the blocks which may occur as an integral part of the experience. 
@@ -139,7 +147,7 @@ Social mode
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\includegraphics[width=\textwidth]{Figures/base}
 	\caption{Base exploded view}
 \end{figure}
@@ -156,7 +164,7 @@ Social mode
 	\label{fig:temporal}
 \end{figure}
 
-\begin{figure}[T]
+\begin{figure}[t!]
 	\includegraphics[width=\textwidth]{figures/GameScrnsht3}
 	\caption{A \emph{geometric constraint} constraint coupled with \emph{temporal}, \emph{resource}, and \emph{logical constraints}}
 	\label{fig:logical}
