@@ -1,0 +1,38 @@
+\documentclass[11pt]{letter}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{scrextend}
+\usepackage{verbatim, hyperref}
+\usepackage{todonotes}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
+%opening
+\title{}
+\author{}
+
+\begin{document}
+\newcommand{\comm}[1]{}
+
+Vincent Pacelli \hfill \hfill \href{mailto:pacelliv@seas.upenn.edu}{pacelliv@seas.upenn.edu}\\
+\rule{\textwidth}{0.1pt}
+
+My course and independent project work as a submatriculated undergraduate at the University of Pennsylvania School of Engineering and Applied Science has fully equipped me with the substantive knowledge and practical experience to be a strong contributor to the MIT teams conducting research in cyber-physical systems, which is my primary area of academic interest.
+As an undergraduate at the University of Pennsylvania, I have successfully prepared myself to begin conducting research in the field of cyber-physical systems as a Ph.D. candidate. I have completed significant coursework and projects in various applied subjects, such as \emph{operating systems}, \emph{solid-state circuits}, and \emph{embedded systems}. Additionally, I have studied many of the subjects that make up the theoretical underpinnings of this field, such as \emph{linear systems}, \emph{theory of embedded computation}, \emph{game theory}, \emph{probability}, and \emph{stochastic processes}. Such a curriculum has prepared me to explore new theoretic concepts and implement experiments to establish their potency. Moreover, as a Ph.D. student, I will continue to build my skill set, particularly by learning new mathematical and practical tools with which I may attack the unique problems associated with enabling machines to efficiently and safely make the decisions required to successfully complete the tasks that we assign them, often in a dynamic and uncertain environment. 
+Additionally, since the best way to cement concepts is through exercise, I have repeatedly tackled projects that link theory with application. For example, when given a choice of tasks as an intern at NASA Langley's Safety Critical Avionics Branch, I elected to help develop a real-time UAV mission optimizer because it allowed me to tackle an interesting problem through probabilistic algorithms. Determining an order to complete various objectives based on their costs and rewards is an often necessary component of an autonomous system. However, the NP-Hard nature of this problem prevents replanning an optimal route in real-time whenever mission parameters are changed. Our solution utilizes \emph{Bayesian methods} to construct a high-performing approximate solution route by estimating which objectives are most likely to appear next in an optimal route. While a probabilistic algorithm sacrifices some amount of optimality, it permits meeting strict real-time requirements and reacting quickly to unforeseen events. My work as an intern will be published in a upcoming branch white paper.
+
+Similarly, in collaboration with Penn's GRASP lab, I selected my senior design project -- a multi-agent UAV system for post-disaster evaluation -- because it allows me to apply recent results in controller synthesis to a real-world problem. The system consists of a custom interface for planning and analyzing missions for our thermal imaging UAVs. One application of the system is for teams to persistently scan areas remotely via UAV on fixed intervals. A human orchestrating such a task is liable to erroneously plot paths that result in vehicle collisions or running out of fuel. However, recent research suggests attacking the problem by converting timing specifications and points of interest input by the user to the rich semantics of \emph{bounded linear temporal logic}. This logic formula is then used to generate an automaton representing our vehicles and the environment. It is then possible to synthesize the necessary vehicle controllers to meet the mission specification without collisions or other safety issues. As a result, the system will be both more flexible and robust. 
+Going forward, I intend to continue to explore problems that relate \emph{planning, verification}, and \emph{control} of autonomous systems. These three fields are tightly coupled, and together seek to answer fundamental questions of autonomy: what must we do and how may we achieve it. The ever advancing fields of computer architecture and chip fabrication have allowed us to imbue physical systems with vast computational power, yet brute-force alone cannot provide us with the devices and tools envisioned by futurists. We must develop better abstractions that lend themselves to encapsulating both digital computation and physical control of these hybrid systems. By considering these subsystems holistically, we may create safer, more capable, and more efficient systems with higher degrees of autonomy. Such models must carefully interleave both high-level intelligence and low-level dynamics to fully capture the nuance of these systems. 
+
+Furthermore, it is critical that such systems are capable of reacting gracefully to unpredictable events. While model-based design provides very powerful tools for developing cyber-physical systems, they often rely on a set of assumptions that may be violated in extreme real world scenarios. Thus, it is imperative -- especially in safety-critical applications -- that such systems are capable of either adapting to new situations as they arise or, in the worst case, failing elegantly. Recent thrusts in areas such as formal verification and different styles of intelligent control have made great strides in this area, but much work remains to be done to meet the growing expectations of autonomous systems.
+MIT is the perfect institution for me to take the next and profoundly important step in my academic career, in particular because of the breadth and depth of MIT’s pioneering research in autonomous cyber-physical systems and their application, which coincides with my interests and experience.  \textbf{Dr. Sertac Karaman’s} work in robotics and control theory with application in systems operating in challenging, multi-agent environments; \textbf{Dr. Russ Tedrake's} research in motion planning for dexterous tasks and interacting with uncertain environments; \textbf{Dr. Brian Williams’} research on the applicability of commonsense reasoning in self-maintaining autonomous explorers; and \textbf{Dr. Nicholas Roy’s} research into the integration of spatial and temporal reasoning into computation systems, especially autonomous decision-making based upon incomplete information, are all projects which would offer me the opportunity to apply and expand my knowledge and experience in the theoretical and practical components of cyber-physical systems.  For all of these reasons, I would be excited to be part of the MIT team that is developing unique solutions to these problems and enabling a more intelligent, safe, and efficient world.%\rule{\textwidth}{1pt}
+
+\begin{comment}
+{\bf \emph{References}}
+
+[1] "Cyber-Physical Systems." Baheti and Gill
+
+[2] "Optimization and Control of Cyber-Physical Vehicle Systems." Bradley and Atkins
+
+\end{comment}
+
+\end{document}
