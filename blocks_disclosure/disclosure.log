@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  1 NOV 2015 21:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 NOV 2015 15:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -153,131 +153,119 @@ Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
 
 [2]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ô in font cmr10!
- [3] (./software.tex
-Underfull \hbox (badness 10000) in paragraph at lines 1--2
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
-
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-)
-Underfull \hbox (badness 10000) in paragraph at lines 61--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--74
-
- []
-
-[5]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ú in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ù in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ú in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ù in font cmr10!
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 117.
-
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 37.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 117.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 37.
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
- [6] [7]
-<Figures/single_block.png, id=32, 549.0111pt x 335.0919pt>
+ [3]
+(./software.tex [4]) [5]
+Underfull \hbox (badness 10000) in paragraph at lines 69--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--82
+
+ []
+
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+[6]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+ [7] [8] <Figures/single_block.png, id=36, 549.0111pt x 335.0919pt>
 File: Figures/single_block.png Graphic file (type png)
 
 <use Figures/single_block.png>
-Package pdftex.def Info: Figures/single_block.png used on input line 136.
+Package pdftex.def Info: Figures/single_block.png used on input line 144.
 (pdftex.def)             Requested size: 345.0pt x 210.57213pt.
 
-<Figures/base.png, id=34, 598.1547pt x 845.0772pt>
+<Figures/base.png, id=38, 598.1547pt x 845.0772pt>
 File: Figures/base.png Graphic file (type png)
  <use Figures/base.png>
-Package pdftex.def Info: Figures/base.png used on input line 143.
+Package pdftex.def Info: Figures/base.png used on input line 151.
 (pdftex.def)             Requested size: 345.0pt x 487.43721pt.
 
-<figures/GameScrnsht1.png, id=35, 1026.08344pt x 435.87843pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/GameScrnsht1.png, id=39, 1026.08344pt x 435.87843pt>
 File: figures/GameScrnsht1.png Graphic file (type png)
 
 <use figures/GameScrnsht1.png>
-Package pdftex.def Info: figures/GameScrnsht1.png used on input line 148.
+Package pdftex.def Info: figures/GameScrnsht1.png used on input line 156.
 (pdftex.def)             Requested size: 345.0pt x 146.55391pt.
 
-<figures/GameScrnsht2.png, id=36, 1027.58907pt x 429.85594pt>
+<figures/GameScrnsht2.png, id=40, 1027.58907pt x 429.85594pt>
 File: figures/GameScrnsht2.png Graphic file (type png)
 
 <use figures/GameScrnsht2.png>
-Package pdftex.def Info: figures/GameScrnsht2.png used on input line 154.
+Package pdftex.def Info: figures/GameScrnsht2.png used on input line 162.
 (pdftex.def)             Requested size: 345.0pt x 144.3191pt.
 
-<figures/GameScrnsht3.png, id=37, 1027.58907pt x 447.92343pt>
+<figures/GameScrnsht3.png, id=41, 1027.58907pt x 447.92343pt>
 File: figures/GameScrnsht3.png Graphic file (type png)
 
 <use figures/GameScrnsht3.png>
-Package pdftex.def Info: figures/GameScrnsht3.png used on input line 162.
+Package pdftex.def Info: figures/GameScrnsht3.png used on input line 168.
 (pdftex.def)             Requested size: 345.0pt x 150.38506pt.
 
-<figures/GameScrnsht4.png, id=38, 1027.58907pt x 425.33907pt>
+<figures/GameScrnsht4.png, id=42, 1027.58907pt x 425.33907pt>
 File: figures/GameScrnsht4.png Graphic file (type png)
 
 <use figures/GameScrnsht4.png>
-Package pdftex.def Info: figures/GameScrnsht4.png used on input line 168.
+Package pdftex.def Info: figures/GameScrnsht4.png used on input line 174.
 (pdftex.def)             Requested size: 345.0pt x 142.80261pt.
- [8 <./Figures/single_block.png>] [9 <./Figures/base.png>] [10 <./figures/GameS
-crnsht1.png> <./figures/GameScrnsht2.png> <./figures/GameScrnsht3.png>] [11 <./
-figures/GameScrnsht4.png>] (./disclosure.aux) ) 
+ [9 <./Figures/single_block.png>] [10 <./Figures/base.png>] [11 <./figures/Game
+Scrnsht1.png> <./figures/GameScrnsht2.png> <./figures/GameScrnsht3.png>] [12 <.
+/figures/GameScrnsht4.png>] (./disclosure.aux) ) 
 Here is how much of TeX's memory you used:
- 1545 strings out of 493117
- 22579 string characters out of 6135433
- 82065 words of memory out of 5000000
- 5003 multiletter control sequences out of 15000+600000
- 8241 words of font info for 29 fonts, out of 8000000 for 9000
+ 1547 strings out of 493117
+ 22600 string characters out of 6135433
+ 83065 words of memory out of 5000000
+ 5004 multiletter control sequences out of 15000+600000
+ 8409 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,6n,23p,1057b,221s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2014/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on disclosure.pdf (11 pages, 1061642 bytes).
+</usr/local/texlive/2014/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2014/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/font
+s/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2014/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on disclosure.pdf (12 pages, 1075721 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
